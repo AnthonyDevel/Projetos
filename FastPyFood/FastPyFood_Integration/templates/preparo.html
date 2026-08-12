@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos em Preparo - Sabor Express</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="preparo-header">
+        <h1><i class="fas fa-clipboard-list"></i> Painel de Pedidos</h1>
+    </div>
+    <div class="pedidos-grid" id="pedidos-container">
+        <!-- Preenchido via JS -->
+    </div>
+    <script>
+        const statusClasses = {
+            'Preparando': 'status-preparando',
+            'Pronto': 'status-pronto',
+            'Saiu para entrega': 'status-saiu',
+            'Entregue': 'status-entregue'
+        };
+        const statusIcons = {
+            'Preparando': 'fa-fire',
+            'Pronto': 'fa-check-circle',
+            'Saiu para entrega': 'fa-motorcycle',
+            'Entregue': 'fa-box-open'
+        };
+
+        async function carregarPedidos() {
+            const resp = await fetch('/api/pedidos');
+            const pedidos = await resp.json();
+            const container = document.getElementById('pedidos-container');
+            if (pedidos.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#999;"><i class="fas fa-inbox"></i> Nenhum pedido no momento.</p>';
+                return;
+            }
+            container.innerHTML = pedidos.map(p => `
+                <div class="pedido-card ${p.status === 'Pronto' ? 'pronto' : ''} ${p.status === 'Entregue' ? 'entregue' : ''}">
+                    <div class="pedido-header">
+                        <span class="pedido-numero">#${p.id} - <i class="fas fa-user"></i> ${p.cliente}</span>
+                        <span class="pedido-status ${statusClasses[p.status] || ''}">
+                            <i class="fas ${statusIcons[p.status] || 'fa-info-circle'}"></i> ${p.status}
+                        </span>
+                    </div>
+                    <div class="pedido-itens">
+                        ${p.itens.map(i => `<div><i class="fas fa-utensil-spoon"></i> ${i.quantidade}x ${i.nome}</div>`).join('')}
+                    </div>
+                    <div class="pedido-total"><i class="fas fa-dollar-sign"></i> R$ ${p.total.toFixed(2)}</div>
+                    <div style="margin-top:5px;">
+                        ${p.tipo_entrega === 'Entrega' ? '<i class="fas fa-motorcycle"></i>' : '<i class="fas fa-store"></i>'} ${p.tipo_entrega} - <i class="fas fa-clock"></i> ${p.data_hora}
+                    </div>
+                    <div class="status-actions">
+                        <select onchange="alterarStatus('${p.id}', this.value)">
+                            <option value="">Alterar status...</option>
+                            <option value="Preparando"><i class="fas fa-fire"></i> Preparando</option>
+                            <option value="Pronto"><i class="fas fa-check-circle"></i> Pronto</option>
+                            <option value="Saiu para entrega"><i class="fas fa-motorcycle"></i> Saiu para entrega</option>
+                            <option value="Entregue"><i class="fas fa-box-open"></i> Entregue</option>
+                        </select>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function alterarStatus(pedidoId, novoStatus) {
+            if (!novoStatus) return;
+            await fetch(`/api/pedido/${pedidoId}/status`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({status: novoStatus})
+            });
+            carregarPedidos();
+        }
+
+        setInterval(carregarPedidos, 5000);
+        carregarPedidos();
+    </script>
+</body>
+</html>

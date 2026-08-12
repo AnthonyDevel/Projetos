@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Acompanhar Pedido - Sabor Express</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="tracking-container">
+        <div class="tracking-header">
+            <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i> Voltar ao cardápio</a>
+            <h1><i class="fas fa-clipboard-list"></i> Acompanhar Pedido</h1>
+        </div>
+
+        <div id="pedido-info" class="pedido-detalhes">
+            <!-- Carregado dinamicamente -->
+        </div>
+
+        <!-- Barra de progresso visual -->
+        <div class="progress-tracker">
+            <div class="progress-step active" data-status="Preparando">
+                <div class="step-icon"><i class="fas fa-fire"></i></div>
+                <span>Preparando</span>
+            </div>
+            <div class="progress-step" data-status="Pronto">
+                <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                <span>Pronto</span>
+            </div>
+            <div class="progress-step" data-status="Saiu para entrega">
+                <div class="step-icon"><i class="fas fa-motorcycle"></i></div>
+                <span>Saiu para entrega</span>
+            </div>
+            <div class="progress-step" data-status="Entregue">
+                <div class="step-icon"><i class="fas fa-box-open"></i></div>
+                <span>Entregue</span>
+            </div>
+            <div class="progress-line"></div>
+        </div>
+
+        <div class="status-message" id="status-message">
+            <i class="fas fa-clock"></i> Aguardando atualização...
+        </div>
+
+        <div class="action-buttons">
+            <a href="/" class="btn-primary"><i class="fas fa-utensils"></i> Novo Pedido</a>
+            <button onclick="window.location.reload()" class="btn-secondary"><i class="fas fa-sync-alt"></i> Atualizar</button>
+        </div>
+    </div>
+
+    <script>
+        const PEDIDO_ID = "{{ pedido_id }}";
+        const statusIcons = {
+            "Preparando": "fa-fire",
+            "Pronto": "fa-check-circle",
+            "Saiu para entrega": "fa-motorcycle",
+            "Entregue": "fa-box-open"
+        };
+
+        function atualizarStatus() {
+            fetch(`/api/pedido/${PEDIDO_ID}`)
+                .then(res => res.json())
+                .then(pedido => {
+                    if (pedido.erro) {
+                        document.getElementById('status-message').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Pedido não encontrado';
+                        return;
+                    }
+                    // Detalhes do pedido
+                    document.getElementById('pedido-info').innerHTML = `
+                        <div class="info-card">
+                            <h2><i class="fas fa-receipt"></i> Pedido #${pedido.id}</h2>
+                            <p><i class="fas fa-user"></i> ${pedido.cliente}</p>
+                            <p><i class="fas fa-shopping-bag"></i> ${pedido.itens.map(i => `${i.quantidade}x ${i.nome}`).join(', ')}</p>
+                            <p><i class="fas fa-money-bill-wave"></i> Total: R$ ${pedido.total.toFixed(2)}</p>
+                            <p>
+                                ${pedido.tipo_entrega === 'Entrega' ? '<i class="fas fa-motorcycle"></i>' : '<i class="fas fa-store"></i>'}
+                                ${pedido.tipo_entrega} - ${pedido.endereco || 'Retirar na loja'}
+                            </p>
+                            <p><i class="fas fa-credit-card"></i> ${pedido.pagamento}</p>
+                            <p><i class="fas fa-clock"></i> Pedido em ${pedido.data_hora}</p>
+                        </div>
+                    `;
+
+                    // Atualizar barra de progresso
+                    const steps = document.querySelectorAll('.progress-step');
+                    let found = false;
+                    steps.forEach(step => {
+                        step.classList.remove('active', 'completed');
+                        if (step.dataset.status === pedido.status) {
+                            step.classList.add('active');
+                            found = true;
+                        } else if (!found) {
+                            step.classList.add('completed');
+                        }
+                    });
+
+                    // Mensagem
+                    const icone = statusIcons[pedido.status] || 'fa-info-circle';
+                    const mensagens = {
+                        'Preparando': 'Seu pedido está sendo preparado com muito carinho!',
+                        'Pronto': 'Pedido pronto! Aguardando retirada/entrega.',
+                        'Saiu para entrega': 'Saiu para entrega! Logo chegará até você.',
+                        'Entregue': 'Pedido entregue! Bom apetite!'
+                    };
+                    document.getElementById('status-message').innerHTML = `<i class="fas ${icone}"></i> ${mensagens[pedido.status] || 'Status atualizado'}`;
+                })
+                .catch(() => {
+                    document.getElementById('status-message').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro ao conectar';
+                });
+        }
+
+        setInterval(atualizarStatus, 5000);
+        atualizarStatus();
+    </script>
+</body>
+</html>

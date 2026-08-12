@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Pedido - Sabor Express</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="checkout-container">
+        <h2><i class="fas fa-shopping-cart"></i> Finalizar Pedido</h2>
+        <form action="/checkout" method="post" id="form-checkout">
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Nome do Cliente</label>
+                <input type="text" name="nome" placeholder="Seu nome completo" required>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-truck"></i> Tipo de Pedido</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="tipo_entrega" value="Retirada" checked onchange="toggleEndereco()"> <i class="fas fa-store"></i> Retirada no local</label>
+                    <label><input type="radio" name="tipo_entrega" value="Entrega" onchange="toggleEndereco()"> <i class="fas fa-motorcycle"></i> Entrega</label>
+                </div>
+            </div>
+            <div id="endereco" class="address-fields">
+                <div class="form-group">
+                    <label><i class="fas fa-map-pin"></i> CEP</label>
+                    <input type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9" onblur="buscarCep()">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-road"></i> Logradouro</label>
+                    <input type="text" id="logradouro" name="logradouro" placeholder="Rua / Avenida">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex:2">
+                        <label><i class="fas fa-hashtag"></i> Número</label>
+                        <input type="text" name="numero" placeholder="Número">
+                    </div>
+                    <div class="form-group" style="flex:3">
+                        <label><i class="fas fa-info-circle"></i> Complemento</label>
+                        <input type="text" name="complemento" placeholder="Apto, bloco, etc.">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-building"></i> Bairro</label>
+                    <input type="text" id="bairro" name="bairro" placeholder="Bairro">
+                </div>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-credit-card"></i> Forma de Pagamento</label>
+                <select name="pagamento" required>
+                    <option value="Dinheiro">💵 Dinheiro</option>
+                    <option value="Cartão">💳 Cartão</option>
+                    <option value="Pix">📱 Pix</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-confirmar"><i class="fas fa-check-circle"></i> Confirmar Pedido</button>
+            <button type="button" class="btn-cancelar" onclick="history.back()"><i class="fas fa-arrow-left"></i> Cancelar</button>
+        </form>
+    </div>
+    <script>
+        function toggleEndereco() {
+            const tipo = document.querySelector('input[name="tipo_entrega"]:checked').value;
+            document.getElementById('endereco').classList.toggle('active', tipo === 'Entrega');
+        }
+
+        function buscarCep() {
+            const cep = document.getElementById('cep').value.replace(/\D/g, '');
+            if (cep.length !== 8) return;
+            const url = `https://viacep.com.br/ws/${cep}/json/`;
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.erro) {
+                        alert('CEP não encontrado.');
+                        return;
+                    }
+                    document.getElementById('logradouro').value = data.logradouro || '';
+                    document.getElementById('bairro').value = data.bairro || '';
+                    // Opcional: preencher cidade e estado se quisesse
+                })
+                .catch(err => {
+                    console.error('Erro ao buscar CEP:', err);
+                });
+        }
+    </script>
+</body>
+</html>

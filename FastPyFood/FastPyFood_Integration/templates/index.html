@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Sabor Express - Peça Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-brand">
+            <div class="logo"><i class="fas fa-hamburger"></i> Sabor<span>Express</span></div>
+        </div>
+        <div class="search-box">
+            <span class="search-icon"><i class="fas fa-search"></i></span>
+            <input type="text" id="busca" placeholder="O que deseja pedir?" oninput="filtrar()">
+        </div>
+        <div class="header-actions">
+            <button class="header-btn" onclick="abrirAcompanharPedido()" title="Acompanhar pedido">
+                <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="header-btn cart-btn" onclick="toggleCarrinho()">
+                <i class="fas fa-shopping-basket"></i>
+                <span class="cart-badge" id="cart-badge">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Categorias -->
+    <div class="categories" id="categorias">
+        <button class="active" onclick="filtrar('Todos')"><i class="fas fa-border-all"></i> Todos</button>
+        {% set cats = lanches | map(attribute='categoria') | unique | list %}
+        {% for cat in cats %}
+        <button onclick="filtrar('{{ cat }}')"><i class="fas fa-tag"></i> {{ cat }}</button>
+        {% endfor %}
+        <button class="btn-novo" onclick="window.location.href='/adicionar'"><i class="fas fa-plus-circle"></i> Novo Produto</button>
+    </div>
+
+    <!-- Grid de Produtos -->
+    <section class="menu-grid" id="menu">
+        {% for lanche in lanches %}
+        <div class="product-card" data-categoria="{{ lanche.categoria }}" data-nome="{{ lanche.nome }}">
+            {% if lanche.badge %}
+            <span class="badge"><i class="fas fa-star"></i> {{ lanche.badge }}</span>
+            {% endif %}
+           <img src="{{ url_for('static', filename=lanche.imagem) if not lanche.imagem.startswith('http') else lanche.imagem }}" alt="{{ lanche.nome }}" onerror="this.onerror=null;this.src='{{ placeholder_url }}';">
+            <div class="info">
+                <h3>{{ lanche.nome }}</h3>
+                <p class="desc">{{ lanche.descricao }}</p>
+                <span class="calories"><i class="fas fa-fire"></i> {{ lanche.calorias }} kcal</span>
+                <div class="footer-card">
+                    <span class="price">R$ {{ "%.2f"|format(lanche.preco) }}</span>
+                    <button class="btn-add" onclick="adicionar('{{ lanche.id }}')"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+
+    <!-- Modal do Carrinho (oculto por padrão) -->
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2><i class="fas fa-shopping-basket"></i> Seu pedido</h2>
+                <button class="cart-close" onclick="toggleCarrinho()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="cart-items" id="itens-carrinho"></div>
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="total">R$ 0.00</span>
+            </div>
+            <button class="btn-finalizar" onclick="finalizar()"><i class="fas fa-check-circle"></i> Finalizar Pedido</button>
+            <button class="btn-limpar" onclick="limparCarrinho()"><i class="fas fa-trash-alt"></i> Limpar carrinho</button>
+        </div>
+    </div>
+
+    <!-- Modal de Acompanhar Pedido -->
+    <div id="track-modal" class="track-modal">
+        <div class="track-modal-content">
+            <h3><i class="fas fa-search"></i> Acompanhar Pedido</h3>
+            <input type="text" id="pedido-id-input" placeholder="Número do pedido (ex: ABC123)">
+            <button onclick="abrirPedido()"><i class="fas fa-eye"></i> Ver status</button>
+            <button class="track-close" onclick="fecharAcompanharPedido()">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Ícone flutuante do carrinho (visível em mobile) -->
+    <div class="floating-cart" id="floating-cart" onclick="toggleCarrinho()">
+        <i class="fas fa-shopping-basket"></i>
+        <span class="cart-badge" id="cart-badge-float">0</span>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
