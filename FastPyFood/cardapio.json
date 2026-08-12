@@ -1,0 +1,82 @@
+[
+    {
+        "id": "1",
+        "nome": "Clássico Burger",
+        "preco": 25.9,
+        "imagem": "classico.png",
+        "descricao": "Hambúrguer 180g, queijo cheddar, alface, tomate e molho especial",
+        "categoria": "Hambúrgueres",
+        "calorias": 850,
+        "badge": "Mais Vendido"
+    },
+    {
+        "id": "2",
+        "nome": "Veggie Power",
+        "preco": 27.9,
+        "imagem": "vegetariano.png",
+        "descricao": "Hambúrguer de grão de bico, abacate, rúcula e maionese vegana",
+        "categoria": "Vegetarianos",
+        "calorias": 550,
+        "badge": "Novo!"
+    },
+    {
+        "id": "3",
+        "nome": "Combo Família",
+        "preco": 79.9,
+        "imagem": "classico.png",
+        "descricao": "4 hambúrgueres, 4 batatas, 4 refrigerantes",
+        "categoria": "Combos",
+        "calorias": 3200,
+        "badge": null
+    },
+    {
+        "id": "4",
+        "nome": "Batata Frita Grande",
+        "preco": 15.9,
+        "imagem": "classico.png",
+        "descricao": "Porção de batata frita crocante 400g",
+        "categoria": "Acompanhamentos",
+        "calorias": 600,
+        "badge": null
+    },
+    {
+        "id": "5",
+        "nome": "Onion Rings",
+        "preco": 12.9,
+        "imagem": "classico.png",
+        "descricao": "Anéis de cebola empanados",
+        "categoria": "Entradas",
+        "calorias": 450,
+        "badge": null
+    },
+    {
+        "id": "6",
+        "nome": "Refrigerante Lata",
+        "preco": 7.9,
+        "imagem": "classico.png",
+        "descricao": "Coca-Cola, Guaraná ou Fanta",
+        "categoria": "Bebidas",
+        "calorias": 140,
+        "badge": null
+    },
+    {
+        "id": "7",
+        "nome": "Milk Shake",
+        "preco": 14.9,
+        "imagem": "classico.png",
+        "descricao": "Chocolate, morango ou baunilha",
+        "categoria": "Sobremesas",
+        "calorias": 420,
+        "badge": null
+    },
+    {
+        "id": "24140062-0db8-45a5-8a0f-fd8297068346",
+        "nome": "Fezes",
+        "preco": 13.0,
+        "imagem": "imagens_produtos\\produto_0dc56361.png",
+        "descricao": "Teste",
+        "categoria": "Hambúrgueres",
+        "calorias": 600,
+        "badge": "Novo"
+    }
+]
