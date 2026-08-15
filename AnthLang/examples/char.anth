@@ -1,0 +1,8 @@
+library "system"
+
+func main()
+{
+    char letra = 'A';
+
+    printf.out(letra);
+}

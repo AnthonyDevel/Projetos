@@ -1,0 +1,18 @@
+library "system"
+
+// Este comentário será ignorado
+
+func main()
+{
+
+    /*
+        Comentário
+        enorme
+        muito grande
+    */
+
+    int idade = 18;
+
+    printf.out("AnthLang");
+
+}

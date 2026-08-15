@@ -1,0 +1,28 @@
+library "system"
+
+func main()
+{   
+    int resultado = 10+10*2;
+    int valores = (10/12)*5;	
+    string n = "Anthony";
+    
+    bool verificar = resultado > valores;
+    bool verificaralt = resultado < valores;
+    
+    printf.out(idade);
+
+    if (resultado == 40){
+    	printf.out("Deu certo!");
+    } else {
+	printf.out("Deu errado.");
+    }
+    
+    while (n == Anthony){
+	printf.out("FUncionando...");
+    }
+    
+    for(int i = 0; i < 10; i + 1){
+    printf.out(i);
+    }
+
+}

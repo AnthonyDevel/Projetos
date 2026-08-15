@@ -1,0 +1,20 @@
+library "system"
+
+func main()
+{
+    int idade = 18;
+
+    idade++;
+
+    idade += 10;
+
+    if (idade >= 18)
+    {
+        printf.out("Maior de idade");
+    }
+
+    if (idade != 20)
+    {
+        printf.out("Diferente de 20");
+    }
+}
