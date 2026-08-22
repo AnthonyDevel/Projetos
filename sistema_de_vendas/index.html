@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 AnthonyDeveloper - VENDAS PREMIUM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    
+    <style>
+        /* ===== CSS COMPLETO (mesmo de antes) ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111927;
+            --bg-card: #141d2b;
+            --bg-card-hover: #1a2638;
+            --border-color: #1e2d45;
+            --text-primary: #e0e8f0;
+            --text-secondary: #8a9bb5;
+            --accent-cyan: #00d4ff;
+            --accent-purple: #6c5ce7;
+            --accent-green: #00ff88;
+            --accent-red: #ff3355;
+            --accent-yellow: #ffd700;
+            --glow-cyan: 0 0 20px rgba(0, 212, 255, 0.3);
+            --font-tech: 'Orbitron', monospace;
+            --font-body: 'Rajdhani', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        body.light-clean {
+            --bg-primary: #f0f4f8;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f8f9fa;
+            --border-color: #dee2e6;
+            --text-primary: #1a1a2e;
+            --text-secondary: #6c757d;
+            --accent-cyan: #0077b6;
+            --accent-purple: #3d5a80;
+            --accent-green: #2d6a4f;
+            --accent-red: #d62828;
+        }
+        body.neon-punk {
+            --bg-primary: #1a0a2e;
+            --bg-secondary: #16213e;
+            --bg-card: #1f3a6b;
+            --bg-card-hover: #2a4a7f;
+            --border-color: #ff006e;
+            --text-primary: #ff6b9d;
+            --text-secondary: #ffa8c4;
+            --accent-cyan: #ff006e;
+            --accent-purple: #ffd700;
+            --accent-green: #00ff88;
+            --accent-red: #ff3355;
+            --accent-yellow: #ffd700;
+        }
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(108, 92, 231, 0.03) 0%, transparent 50%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 212, 255, 0.01) 2px, rgba(0, 212, 255, 0.01) 4px);
+            position: relative;
+            transition: var(--transition);
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===== LOGIN ===== */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            animation: fadeIn 0.5s ease;
+        }
+        .login-overlay.hidden { display: none; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .login-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 48px 40px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: var(--glow-cyan), 0 20px 60px rgba(0,0,0,0.8);
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.6s ease;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .login-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-purple), transparent);
+            animation: scanline 3s linear infinite;
+        }
+        @keyframes scanline {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(50%); }
+        }
+        .login-logo { text-align: center; margin-bottom: 32px; }
+        .login-logo i { font-size: 48px; color: var(--accent-cyan); text-shadow: 0 0 40px rgba(0, 212, 255, 0.3); display: block; margin-bottom: 12px; }
+        .login-logo h1 { font-family: var(--font-tech); font-size: 24px; font-weight: 900; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
+        .login-logo p { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+        .login-form .form-group { margin-bottom: 20px; position: relative; }
+        .login-form label { display: block; color: var(--text-secondary); font-size: 13px; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase; }
+        .login-form input { width: 100%; padding: 14px 16px 14px 44px; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-primary); font-family: var(--font-body); font-size: 15px; transition: var(--transition); }
+        .login-form input:focus { outline: none; border-color: var(--accent-cyan); box-shadow: 0 0 30px rgba(0, 212, 255, 0.05); }
+        .login-form .input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); font-size: 16px; opacity: 0.5; }
+        .login-form .input-group { position: relative; }
+        .login-form .input-group .toggle-password { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 16px; opacity: 0.5; transition: var(--transition); }
+        .login-form .input-group .toggle-password:hover { opacity: 1; }
+        .login-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); border: none; border-radius: 10px; color: #000; font-family: var(--font-tech); font-size: 16px; font-weight: 700; letter-spacing: 1px; cursor: pointer; transition: var(--transition); text-transform: uppercase; margin-top: 8px; }
+        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0, 212, 255, 0.3); }
+        .login-error { color: var(--accent-red); font-size: 13px; text-align: center; margin-top: 12px; opacity: 0; transition: var(--transition); min-height: 20px; }
+        .login-error.show { opacity: 1; }
+        .login-footer { text-align: center; margin-top: 20px; color: var(--text-secondary); font-size: 12px; opacity: 0.5; }
+        .logout-btn { background: transparent; border: 1px solid var(--accent-red); color: var(--accent-red); padding: 6px 16px; border-radius: 6px; cursor: pointer; font-family: var(--font-body); font-weight: 600; font-size: 13px; transition: var(--transition); display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .logout-btn:hover { background: var(--accent-red); color: #000; box-shadow: 0 0 30px rgba(255, 51, 85, 0.3); }
+
+        /* ===== RELÓGIO ===== */
+        .clock-container { display: flex; align-items: center; gap: 12px; font-family: var(--font-tech); background: rgba(0, 212, 255, 0.05); padding: 6px 16px 6px 12px; border-radius: 8px; border: 1px solid rgba(0, 212, 255, 0.1); }
+        .clock-container .clock-icon { color: var(--accent-cyan); font-size: 14px; }
+        .clock-container .clock-time { font-size: 16px; color: var(--accent-cyan); letter-spacing: 1px; font-weight: 700; min-width: 80px; }
+        .clock-container .clock-date { font-size: 11px; color: var(--text-secondary); letter-spacing: 0.5px; font-family: var(--font-body); }
+
+        /* ===== CALENDÁRIO ===== */
+        .calendario-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; margin-top: 12px; }
+        .calendario-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .calendario-header .mes-ano { font-family: var(--font-tech); font-size: 16px; color: var(--text-primary); }
+        .calendario-header .btn-mes { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 4px 12px; border-radius: 6px; cursor: pointer; transition: var(--transition); }
+        .calendario-header .btn-mes:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+        .calendario-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .calendario-grid .dia-semana { text-align: center; font-size: 11px; color: var(--text-secondary); font-weight: 600; padding: 4px; font-family: var(--font-tech); }
+        .calendario-grid .dia { text-align: center; padding: 8px 4px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: var(--transition); color: var(--text-primary); position: relative; }
+        .calendario-grid .dia:hover { background: var(--bg-card-hover); }
+        .calendario-grid .dia.hoje { border: 1px solid var(--accent-cyan); background: rgba(0, 212, 255, 0.1); }
+        .calendario-grid .dia.vazio { color: var(--text-secondary); opacity: 0.3; cursor: default; }
+        .calendario-grid .dia.com-venda { background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.2); }
+        .calendario-grid .dia.com-venda::after { content: '●'; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); font-size: 6px; color: var(--accent-green); }
+        .calendario-grid .dia .valor-dia { font-size: 8px; color: var(--accent-green); display: block; font-family: var(--font-tech); }
+
+        /* ===== GRÁFICOS RENDIMENTO ===== */
+        .graficos-rendimento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 12px; }
+        .grafico-rendimento-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; transition: var(--transition); }
+        .grafico-rendimento-card:hover { border-color: var(--accent-cyan); }
+        .grafico-rendimento-card .grafico-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .grafico-rendimento-card .grafico-header h4 { font-family: var(--font-tech); font-size: 12px; color: var(--text-secondary); letter-spacing: 0.5px; }
+        .grafico-rendimento-card canvas { max-height: 120px; max-width: 100%; }
+        @media (max-width: 900px) { .graficos-rendimento { grid-template-columns: 1fr; } }
+
+        /* ===== APP ===== */
+        .app { max-width: 1440px; margin: 0 auto; padding: 20px 24px 20px; position: relative; z-index: 1; }
+        .top-bar { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px 28px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; box-shadow: var(--glow-cyan), inset 0 0 30px rgba(0, 212, 255, 0.02); position: relative; overflow: hidden; }
+        .top-bar::before { content: ''; position: absolute; top: 0; left: -100%; width: 200%; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-purple), transparent); animation: scanline 4s linear infinite; }
+        .logo { font-family: var(--font-tech); font-size: 22px; font-weight: 900; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: var(--glow-cyan); letter-spacing: 2px; display: flex; align-items: center; gap: 12px; }
+        .logo i { background: none; -webkit-text-fill-color: var(--accent-cyan); font-size: 26px; text-shadow: 0 0 30px rgba(0, 212, 255, 0.5); }
+        .logo span { font-size: 12px; background: rgba(0, 212, 255, 0.1); padding: 2px 12px; border-radius: 20px; border: 1px solid rgba(0, 212, 255, 0.2); color: var(--text-secondary); font-family: var(--font-body); -webkit-text-fill-color: var(--text-secondary); font-weight: 400; letter-spacing: 1px; }
+        .menu-group { display: flex; flex-wrap: wrap; gap: 4px; }
+        .menu-group button { background: transparent; border: 1px solid transparent; color: var(--text-secondary); font-family: var(--font-body); font-weight: 600; font-size: 13px; padding: 6px 16px; border-radius: 6px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .menu-group button:hover { color: var(--text-primary); border-color: var(--border-color); background: var(--bg-card); box-shadow: 0 0 20px rgba(0, 212, 255, 0.05); }
+        .menu-group button i { font-size: 14px; color: var(--accent-cyan); }
+        .status-right { display: flex; align-items: center; gap: 20px; font-size: 13px; color: var(--text-secondary); font-weight: 600; font-family: var(--font-tech); letter-spacing: 0.5px; }
+        .status-right span { display: flex; align-items: center; gap: 6px; }
+        .status-right i { color: var(--accent-cyan); font-size: 14px; }
+        .status-dot { display: flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 20px; background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.1); }
+        .dot-online { display: inline-block; width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; animation: pulse-dot 1.5s ease-in-out infinite; box-shadow: 0 0 10px rgba(0, 255, 136, 0.5); }
+        @keyframes pulse-dot { 0%, 100% { opacity: 0.4; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+
+        .tabs { display: flex; gap: 2px; flex-wrap: wrap; background: var(--bg-secondary); border-radius: 12px 12px 0 0; padding: 8px 12px 0; border: 1px solid var(--border-color); border-bottom: none; box-shadow: inset 0 -2px 0 var(--border-color); }
+        .tab-btn { background: transparent; border: none; color: var(--text-secondary); font-family: var(--font-body); font-weight: 700; font-size: 14px; padding: 12px 24px; border-radius: 8px 8px 0 0; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.5px; position: relative; }
+        .tab-btn i { font-size: 16px; color: var(--accent-cyan); }
+        .tab-btn:hover { color: var(--text-primary); background: var(--bg-card); }
+        .tab-btn.active { color: var(--accent-cyan); background: var(--bg-primary); box-shadow: 0 -2px 0 var(--accent-cyan); }
+        .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 20%; right: 20%; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent); animation: tabGlow 2s ease-in-out infinite; }
+        @keyframes tabGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+        .tab-content { background: var(--bg-primary); border-radius: 0 0 12px 12px; padding: 20px; min-height: 500px; border: 1px solid var(--border-color); border-top: none; box-shadow: inset 0 20px 40px rgba(0, 0, 0, 0.5); }
+        .tab-pane { display: none; animation: fadeInTech 0.3s ease; }
+        .tab-pane.active { display: block; }
+        @keyframes fadeInTech { 0% { opacity: 0; transform: translateY(10px) scale(0.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+
+        .card { background: var(--bg-card); border-radius: 12px; padding: 20px 24px 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.02); margin-bottom: 20px; position: relative; overflow: hidden; transition: all 0.3s ease; }
+        .card:hover { border-color: rgba(0, 212, 255, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 212, 255, 0.02); }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-purple), transparent); opacity: 0.3; }
+        .card-title { font-family: var(--font-tech); font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; color: var(--text-primary); letter-spacing: 1px; text-transform: uppercase; }
+        .card-title i { color: var(--accent-cyan); font-size: 18px; text-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+        .card-title .badge-tech { font-size: 10px; background: rgba(0, 212, 255, 0.1); padding: 2px 12px; border-radius: 12px; border: 1px solid rgba(0, 212, 255, 0.2); color: var(--text-secondary); font-family: var(--font-body); font-weight: 400; }
+
+        .grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+        .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+        @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } .grid-3 { grid-template-columns: 1fr; } .grid-4 { grid-template-columns: 1fr 1fr; } }
+
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
+        .dashboard-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; text-align: center; transition: var(--transition); }
+        .dashboard-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+        .dashboard-card .number { font-family: var(--font-tech); font-size: 32px; font-weight: 700; color: var(--accent-cyan); }
+        .dashboard-card .label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+        input, select { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 16px; color: var(--text-primary); font-family: var(--font-body); font-size: 14px; font-weight: 400; width: 100%; transition: all 0.3s ease; }
+        input:focus, select:focus { outline: none; border-color: var(--accent-cyan); box-shadow: 0 0 20px rgba(0, 212, 255, 0.1), inset 0 0 20px rgba(0, 212, 255, 0.02); background: var(--bg-card); }
+        input::placeholder { color: var(--text-secondary); opacity: 0.5; }
+
+        .btn { border: none; border-radius: 8px; padding: 10px 24px; font-family: var(--font-body); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .btn::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 50%); opacity: 0; transition: opacity 0.3s ease; }
+        .btn:hover::after { opacity: 1; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-purple), #5a4bd1); color: white; box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(108, 92, 231, 0.4); }
+        .btn-success { background: linear-gradient(135deg, var(--accent-green), #00cc77); color: #0a0e17; box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2); }
+        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(0, 255, 136, 0.3); }
+        .btn-danger { background: linear-gradient(135deg, var(--accent-red), #cc0033); color: white; box-shadow: 0 4px 15px rgba(255, 51, 85, 0.2); }
+        .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(255, 51, 85, 0.3); }
+        .btn-warning { background: linear-gradient(135deg, var(--accent-yellow), #ffcc00); color: #0a0e17; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2); }
+        .btn-warning:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(255, 215, 0, 0.3); }
+        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); }
+        .btn-outline:hover { background: var(--bg-card); border-color: var(--accent-cyan); color: var(--text-primary); }
+        .btn-ghost { background: transparent; color: var(--text-secondary); }
+        .btn-ghost:hover { color: var(--accent-cyan); background: rgba(0, 212, 255, 0.05); }
+
+        .flex-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+        .w-full { width: 100%; }
+        .mt-12 { margin-top: 12px; }
+        .mb-8 { margin-bottom: 8px; }
+        .gap-8 { gap: 8px; }
+
+        .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); }
+        table { width: 100%; border-collapse: collapse; background: var(--bg-secondary); }
+        th { text-align: left; padding: 12px 16px; background: var(--bg-primary); color: var(--text-secondary); font-family: var(--font-tech); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border-color); }
+        td { padding: 10px 16px; border-bottom: 1px solid var(--border-color); color: var(--text-primary); font-weight: 400; cursor: pointer; transition: all 0.2s ease; }
+        tr:hover td { background: var(--bg-card-hover); }
+        tr.selected td { background: rgba(0, 212, 255, 0.05); border-left: 2px solid var(--accent-cyan); }
+        .badge { background: var(--bg-card); padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1px solid var(--border-color); font-family: var(--font-tech); }
+
+        .img-preview { display: flex; justify-content: center; align-items: center; background: var(--bg-primary); border-radius: 8px; min-height: 160px; border: 1px solid var(--border-color); padding: 12px; position: relative; }
+        .img-preview img { max-width: 100%; max-height: 200px; border-radius: 8px; object-fit: contain; }
+        .img-placeholder { color: var(--text-secondary); font-size: 14px; opacity: 0.5; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .img-placeholder i { font-size: 32px; color: var(--border-color); }
+
+        .total-carrinho { font-family: var(--font-tech); font-size: 28px; font-weight: 700; color: var(--accent-cyan); text-shadow: 0 0 30px rgba(0, 212, 255, 0.2); }
+        .scroll-text { background: var(--bg-primary); border-radius: 8px; padding: 16px; max-height: 200px; overflow-y: auto; font-size: 13px; border: 1px solid var(--border-color); color: var(--text-secondary); white-space: pre-wrap; font-family: 'Courier New', monospace; line-height: 1.6; }
+        .scroll-text::-webkit-scrollbar { width: 4px; }
+        .scroll-text::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 10px; }
+
+        .slider-group { display: flex; flex-direction: column; gap: 4px; }
+        .slider-group label { font-size: 13px; color: var(--text-secondary); font-weight: 600; display: flex; justify-content: space-between; }
+        input[type="range"] { width: 100%; height: 4px; -webkit-appearance: none; background: var(--bg-secondary); border-radius: 10px; outline: none; border: none; padding: 0; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; background: var(--accent-cyan); border-radius: 50%; cursor: pointer; box-shadow: 0 0 20px rgba(0, 212, 255, 0.4); }
+        input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); box-shadow: 0 0 30px rgba(0, 212, 255, 0.6); }
+
+        .canvas-editor { width: 100%; max-height: 400px; border-radius: 8px; background: var(--bg-primary); border: 1px solid var(--border-color); }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan); }
+
+        .notificacao-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; max-width: 400px; }
+        .notificacao { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); animation: slideInRight 0.3s ease; transform-origin: right; backdrop-filter: blur(10px); }
+        .notificacao i { font-size: 20px; }
+        .notificacao-success i { color: var(--accent-green); }
+        .notificacao-danger i { color: var(--accent-red); }
+        .notificacao-info i { color: var(--accent-cyan); }
+        .notificacao-warning i { color: var(--accent-yellow); }
+        .notificacao button { background: none; border: none; color: var(--text-secondary); font-size: 20px; cursor: pointer; margin-left: auto; padding: 0 4px; }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
+
+        .chatbot-container { position: fixed; bottom: 20px; right: 20px; z-index: 9998; width: 350px; max-height: 500px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); display: flex; flex-direction: column; transition: var(--transition); transform: translateY(calc(100% - 60px)); }
+        .chatbot-container.open { transform: translateY(0); }
+        .chatbot-header { padding: 12px 20px; background: var(--bg-secondary); border-radius: 16px 16px 0 0; cursor: pointer; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border-color); }
+        .chatbot-header i { color: var(--accent-cyan); font-size: 20px; }
+        .chatbot-header .badge { font-size: 10px; background: var(--accent-green); color: #000; padding: 2px 10px; border-radius: 20px; font-weight: 700; }
+        .chatbot-body { flex: 1; padding: 16px; overflow-y: auto; max-height: 300px; display: flex; flex-direction: column; gap: 8px; }
+        .chat-message { padding: 8px 14px; border-radius: 12px; max-width: 85%; font-size: 14px; word-wrap: break-word; animation: fadeInUp 0.3s ease; }
+        .chat-message.bot { background: var(--bg-secondary); border: 1px solid var(--border-color); align-self: flex-start; border-bottom-left-radius: 4px; }
+        .chat-message.user { background: var(--accent-cyan); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .chatbot-footer { padding: 12px; border-top: 1px solid var(--border-color); display: flex; gap: 8px; }
+        .chatbot-footer input { flex: 1; padding: 8px 14px; border-radius: 20px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); }
+        .chatbot-footer button { padding: 8px 16px; border: none; border-radius: 20px; background: var(--accent-cyan); color: #000; cursor: pointer; font-weight: 700; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .moeda-selector { display: flex; gap: 8px; align-items: center; }
+        .moeda-btn { padding: 4px 12px; border: 1px solid var(--border-color); border-radius: 6px; background: transparent; color: var(--text-secondary); cursor: pointer; transition: var(--transition); font-weight: 600; }
+        .moeda-btn.active { background: var(--accent-cyan); color: #000; border-color: var(--accent-cyan); }
+
+        @media (max-width: 600px) {
+            .top-bar { flex-direction: column; align-items: stretch; padding: 16px; }
+            .status-right { justify-content: space-between; flex-wrap: wrap; }
+            .tab-btn { padding: 8px 14px; font-size: 12px; }
+            .logo { font-size: 18px; }
+            .grid-4 { grid-template-columns: 1fr; }
+            .app { padding: 12px; }
+            .chatbot-container { width: 300px; right: 10px; bottom: 10px; }
+            .login-box { padding: 32px 24px; margin: 16px; }
+            .graficos-rendimento { grid-template-columns: 1fr; }
+            .clock-container .clock-date { display: none; }
+        }
+        .relatorio-highlight { color: var(--accent-cyan); font-weight: 700; }
+        .relatorio-total { color: var(--accent-green); font-weight: 700; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+<!-- ===== TELA DE LOGIN ===== -->
+<div class="login-overlay" id="loginOverlay">
+    <div class="login-box">
+        <div class="login-logo">
+            <i class="fas fa-microchip"></i>
+            <h1>ANTHONY-DEVELOPER</h1>
+            <p>Sistema de Vendas Premium</p>
+        </div>
+        <form class="login-form" id="loginForm" onsubmit="return fazerLogin(event)">
+            <div class="form-group">
+                <label for="loginUser"><i class="fas fa-user"></i> Usuário</label>
+                <div class="input-group">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="loginUser" placeholder="Digite seu usuário" value="Anthony" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="loginPass"><i class="fas fa-lock"></i> Senha</label>
+                <div class="input-group">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="loginPass" placeholder="Digite sua senha" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword()">
+                        <i class="fas fa-eye" id="toggleIcon"></i>
+                    </button>
+                </div>
+            </div>
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Entrar no Sistema
+            </button>
+            <div class="login-error" id="loginError">❌ Usuário ou senha incorretos!</div>
+            <div class="login-footer">
+                <i class="fas fa-shield-alt"></i> Sistema Seguro v5.0
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ===== NOTIFICAÇÕES ===== -->
+<div class="notificacao-container" id="notificacoes"></div>
+
+<!-- ===== SISTEMA PRINCIPAL ===== -->
+<div class="app" id="app" style="display:none;">
+
+    <!-- TOP BAR TECH -->
+    <div class="top-bar">
+        <div class="logo">
+            <i class="fas fa-microchip"></i>
+            ANTHONY-DEVELOPER
+            <span>v5.0</span>
+        </div>
+        <div class="menu-group">
+            <div class="clock-container">
+                <i class="fas fa-clock clock-icon"></i>
+                <span class="clock-time" id="clockTime">00:00:00</span>
+                <span class="clock-date" id="clockDate">00/00/0000</span>
+            </div>
+            <button onclick="alternarTema()"><i class="fas fa-palette"></i> Tema</button>
+            <button onclick="exportarCSV()"><i class="fas fa-file-csv"></i> CSV</button>
+            <button onclick="exportarPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
+            <button onclick="salvarDados()"><i class="fas fa-save"></i> Salvar</button>
+            <button onclick="carregarDados()"><i class="fas fa-folder-open"></i> Carregar</button>
+            <button onclick="fazerBackup()"><i class="fas fa-archive"></i> Backup</button>
+            <button onclick="zerarDados()" class="btn-danger" style="background:var(--accent-red); color:white; padding:6px 16px; border-radius:6px; border:none; cursor:pointer; font-family:var(--font-body); font-weight:600; font-size:13px; display:flex; align-items:center; gap:8px; text-transform:uppercase; letter-spacing:0.5px;">
+                <i class="fas fa-trash"></i> Zerar Dados
+            </button>
+            <button onclick="mostrarSobre()"><i class="fas fa-info-circle"></i> Sobre</button>
+            <button onclick="mostrarTutorial()"><i class="fas fa-graduation-cap"></i> Tutorial</button>
+            <button class="logout-btn" onclick="fazerLogout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+        </div>
+        <div class="status-right">
+            <span><i class="fas fa-box"></i> <span id="statusProdutos">0</span></span>
+            <span><i class="fas fa-cart-shopping"></i> <span id="statusEstoque">0</span></span>
+            <span><i class="fas fa-coins"></i> <span id="statusVendas">0</span></span>
+            <div class="moeda-selector">
+                <button class="moeda-btn active" onclick="alterarMoeda('BRL')">R$</button>
+                <button class="moeda-btn" onclick="alterarMoeda('USD')">US$</button>
+                <button class="moeda-btn" onclick="alterarMoeda('EUR')">€</button>
+            </div>
+            <span class="status-dot">
+                <span class="dot-online"></span>
+                <span id="statusTexto">ONLINE</span>
+                <span style="font-size:10px; opacity:0.4;">| SECURE</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs" id="tabHeaders">
+        <button class="tab-btn active" data-tab="tab-dashboard"><i class="fas fa-chart-pie"></i> Dashboard</button>
+        <button class="tab-btn" data-tab="tab-produtos"><i class="fas fa-cube"></i> Produtos</button>
+        <button class="tab-btn" data-tab="tab-vendas"><i class="fas fa-cash-register"></i> Vendas</button>
+        <button class="tab-btn" data-tab="tab-carrinho"><i class="fas fa-shopping-cart"></i> Carrinho</button>
+        <button class="tab-btn" data-tab="tab-gestao"><i class="fas fa-chart-pie"></i> Gestão</button>
+        <button class="tab-btn" data-tab="tab-relatorios"><i class="fas fa-chart-bar"></i> Relatórios</button>
+        <button class="tab-btn" data-tab="tab-editor"><i class="fas fa-paint-brush"></i> Editor</button>
+    </div>
+
+    <!-- CONTEÚDO -->
+    <div class="tab-content">
+
+        <!-- DASHBOARD -->
+        <div id="tab-dashboard" class="tab-pane active">
+            <div class="card">
+                <div class="card-title"><i class="fas fa-chart-line"></i> Dashboard Interativo</div>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="number" id="dashProdutos">0</div>
+                        <div class="label">Total Produtos</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="number" id="dashEstoque">0</div>
+                        <div class="label">Itens em Estoque</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="number" id="dashVendas">0</div>
+                        <div class="label">Vendas Realizadas</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="number" id="dashFaturamento">R$ 0</div>
+                        <div class="label">Faturamento Total</div>
+                    </div>
+                </div>
+                <canvas id="dashboardChart" style="max-height:300px;"></canvas>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><i class="fas fa-chart-bar"></i> Rendimento em Tempo Real</div>
+                <div class="graficos-rendimento">
+                    <div class="grafico-rendimento-card">
+                        <div class="grafico-header">
+                            <h4><i class="fas fa-calendar-day" style="color:var(--accent-cyan);"></i> Rendimento Diário</h4>
+                            <span class="badge-tech" id="rendimentoDiarioValor">R$ 0</span>
+                        </div>
+                        <canvas id="graficoDiario"></canvas>
+                    </div>
+                    <div class="grafico-rendimento-card">
+                        <div class="grafico-header">
+                            <h4><i class="fas fa-calendar-week" style="color:var(--accent-purple);"></i> Rendimento Semanal</h4>
+                            <span class="badge-tech" id="rendimentoSemanalValor">R$ 0</span>
+                        </div>
+                        <canvas id="graficoSemanal"></canvas>
+                    </div>
+                    <div class="grafico-rendimento-card">
+                        <div class="grafico-header">
+                            <h4><i class="fas fa-calendar-alt" style="color:var(--accent-green);"></i> Rendimento Mensal</h4>
+                            <span class="badge-tech" id="rendimentoMensalValor">R$ 0</span>
+                        </div>
+                        <canvas id="graficoMensal"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><i class="fas fa-calendar-alt"></i> Calendário de Vendas</div>
+                <div class="calendario-container" id="calendarioContainer">
+                    <div class="calendario-header">
+                        <button class="btn-mes" onclick="mudarMes(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span class="mes-ano" id="mesAno">Janeiro 2025</span>
+                        <button class="btn-mes" onclick="mudarMes(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="calendario-grid" id="calendarioGrid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUTOS -->
+        <div id="tab-produtos" class="tab-pane">
+            <div class="grid-2">
+                <div>
+                    <div class="card">
+                        <div class="card-title">
+                            <i class="fas fa-list-ul"></i> Catálogo de Produtos
+                            <span class="badge-tech">LIVE</span>
+                        </div>
+                        <div class="flex-row mb-8">
+                            <input type="text" id="searchProduto" placeholder="🔍 Buscar produto..." style="flex:1;" oninput="filtrarProdutos()">
+                            <button class="btn btn-ghost" onclick="limparBusca()"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead><tr><th>CÓDIGO</th><th>NOME</th><th>ESTOQUE</th><th>VALOR</th></tr></thead>
+                                <tbody id="tabelaProdutos"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-plus-circle"></i> Novo Produto</div>
+                        <div class="grid-3" style="grid-template-columns: 2fr 1fr 1fr;">
+                            <input type="text" id="inputNome" placeholder="Nome do produto">
+                            <input type="number" id="inputQtd" placeholder="Quantidade" min="0">
+                            <input type="number" id="inputValor" placeholder="Valor (R$)" step="0.01" min="0.01">
+                        </div>
+                        <button class="btn btn-success mt-12" onclick="cadastrarProduto()"><i class="fas fa-plus"></i> Cadastrar</button>
+                    </div>
+                </div>
+                <div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-eye"></i> Visualização</div>
+                        <div class="img-preview" id="previewProduto">
+                            <span class="img-placeholder"><i class="fas fa-camera"></i> Selecione um produto</span>
+                        </div>
+                        <div id="infoProdutoSelecionado" style="margin-top:12px; text-align:center;">
+                            <strong id="nomeProdSelecionado" style="font-family:var(--font-tech);"></strong><br>
+                            <span id="infoProdSelecionado" style="color:var(--text-secondary);"></span>
+                        </div>
+                        <div class="flex-row mt-12">
+                            <button class="btn btn-primary" onclick="adicionarImagem()"><i class="fas fa-image"></i> Adicionar</button>
+                            <button class="btn btn-outline" onclick="abrirEditor()"><i class="fas fa-pen"></i> Editar</button>
+                            <button class="btn btn-danger" onclick="removerImagem()"><i class="fas fa-trash"></i> Remover</button>
+                        </div>
+                        <hr style="border-color:var(--border-color); margin:14px 0;">
+                        <div class="flex-row">
+                            <button class="btn btn-primary" onclick="editarProduto()"><i class="fas fa-edit"></i> Editar</button>
+                            <button class="btn btn-danger" onclick="excluirProduto()"><i class="fas fa-trash"></i> Excluir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VENDAS -->
+        <div id="tab-vendas" class="tab-pane">
+            <div class="grid-2">
+                <div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-cart-plus"></i> Selecionar Produto</div>
+                        <select id="comboVendas" class="w-full" onchange="mostrarInfoVenda()"></select>
+                        <div class="flex-row mt-12">
+                            <label style="color:var(--text-secondary); font-weight:600;">Quantidade:</label>
+                            <button class="btn btn-outline" onclick="ajustarQtd(-1)"><i class="fas fa-minus"></i></button>
+                            <input type="number" id="qtdVenda" value="1" min="1" style="width:80px; text-align:center;">
+                            <button class="btn btn-outline" onclick="ajustarQtd(1)"><i class="fas fa-plus"></i></button>
+                            <button class="btn btn-success" onclick="adicionarAoCarrinho()"><i class="fas fa-cart-plus"></i> Adicionar</button>
+                        </div>
+                        <div id="infoVendaSelecionada" style="margin-top:12px; color:var(--text-secondary);"></div>
+                        <div class="img-preview mt-12" id="previewVenda" style="min-height:100px;">
+                            <span class="img-placeholder"><i class="fas fa-camera"></i> Selecione um produto</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-history"></i> Últimas Vendas</div>
+                        <div class="scroll-text" id="ultimasVendas">Nenhuma venda registrada.</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-bolt"></i> Venda Rápida</div>
+                        <select id="comboRapido" class="w-full"></select>
+                        <div class="flex-row mt-12">
+                            <input type="number" id="qtdRapida" value="1" min="1" style="width:100px;">
+                            <button class="btn btn-warning" onclick="vendaRapida()"><i class="fas fa-bolt"></i> Finalizar</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-chart-simple"></i> Faturamento Total</div>
+                        <div id="faturamentoRapido" style="font-family:var(--font-tech); font-size:28px; color:var(--accent-cyan); text-shadow:0 0 30px rgba(0,212,255,0.2);">R$ 0.00</div>
+                        <button class="btn btn-primary mt-12" onclick="calcularFaturamento()"><i class="fas fa-sync"></i> Atualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARRINHO -->
+        <div id="tab-carrinho" class="tab-pane">
+            <div class="card">
+                <div class="card-title"><i class="fas fa-shopping-cart"></i> Carrinho de Compras <span class="badge-tech">ATIVO</span></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>PRODUTO</th><th>QTD</th><th>VALOR UNIT.</th><th>SUBTOTAL</th></tr></thead>
+                        <tbody id="tabelaCarrinho"></tbody>
+                    </table>
+                </div>
+                <div class="flex-row mt-12" style="justify-content:space-between;">
+                    <div>
+                        <span class="total-carrinho" id="totalCarrinho">R$ 0.00</span>
+                        <span class="badge" id="itensCarrinho">0 itens</span>
+                    </div>
+                    <div class="flex-row">
+                        <button class="btn btn-danger" onclick="removerItemCarrinho()"><i class="fas fa-trash"></i> Remover</button>
+                        <button class="btn btn-danger" onclick="limparCarrinho()"><i class="fas fa-broom"></i> Limpar</button>
+                        <button class="btn btn-success" onclick="finalizarVenda()"><i class="fas fa-check"></i> Finalizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GESTÃO -->
+        <div id="tab-gestao" class="tab-pane">
+            <div class="grid-2">
+                <div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-tools"></i> Painel de Controle</div>
+                        <div class="grid-3">
+                            <button class="btn btn-primary" onclick="abrirMarketing()"><i class="fas fa-bullhorn"></i> Marketing</button>
+                            <button class="btn btn-primary" onclick="abrirObservatorio()"><i class="fas fa-telescope"></i> Observatório</button>
+                            <button class="btn btn-success" onclick="abrirRendimento()"><i class="fas fa-chart-line"></i> Rendimento</button>
+                            <button class="btn btn-warning" onclick="abrirSimulacao()"><i class="fas fa-calculator"></i> Simulação</button>
+                            <button class="btn btn-primary" onclick="mostrarRelatorioLucro()"><i class="fas fa-coins"></i> Lucro</button>
+                            <button class="btn btn-primary" onclick="mostrarRelatorioEstoque()"><i class="fas fa-boxes"></i> Estoque</button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-file-alt"></i> Resultados</div>
+                        <div class="scroll-text" id="resultadoGestao" style="max-height:280px; font-family:'Segoe UI', sans-serif;">Clique em uma ferramenta para ver os resultados aqui.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RELATÓRIOS -->
+        <div id="tab-relatorios" class="tab-pane">
+            <div class="card">
+                <div class="card-title"><i class="fas fa-chart-pie"></i> Relatórios Gerenciais</div>
+                <div class="flex-row mb-8">
+                    <button class="btn btn-primary" onclick="mostrarRelatorioLucro()"><i class="fas fa-coins"></i> Lucro</button>
+                    <button class="btn btn-primary" onclick="mostrarRelatorioEstoque()"><i class="fas fa-boxes"></i> Estoque</button>
+                    <button class="btn btn-primary" onclick="mostrarRelatorioVendas()"><i class="fas fa-receipt"></i> Vendas</button>
+                    <button class="btn btn-success" onclick="mostrarResumoGeral()"><i class="fas fa-chart-simple"></i> Resumo</button>
+                </div>
+                <div class="scroll-text" id="relatorioTexto" style="max-height:380px; font-family:'Courier New', monospace; font-size:14px;">Selecione um relatório para visualizar.</div>
+            </div>
+        </div>
+
+        <!-- EDITOR -->
+        <div id="tab-editor" class="tab-pane">
+            <div class="grid-2">
+                <div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-sliders-h"></i> Ferramentas de Edição</div>
+                        <div class="slider-group">
+                            <label>☀️ Brilho <span id="valBrilho">1.0</span></label>
+                            <input type="range" id="sliderBrilho" min="0.5" max="1.5" step="0.01" value="1.0" oninput="aplicarEfeitosCanvas()">
+                            <label>🎯 Contraste <span id="valContraste">1.0</span></label>
+                            <input type="range" id="sliderContraste" min="0.5" max="1.5" step="0.01" value="1.0" oninput="aplicarEfeitosCanvas()">
+                            <label>🔍 Nitidez <span id="valNitidez">1.0</span></label>
+                            <input type="range" id="sliderNitidez" min="0.0" max="2.0" step="0.05" value="1.0" oninput="aplicarEfeitosCanvas()">
+                        </div>
+                        <div class="grid-3 mt-12">
+                            <button class="btn btn-outline" onclick="aplicarBlur()"><i class="fas fa-eye-slash"></i> Blur</button>
+                            <button class="btn btn-outline" onclick="aplicarPb()"><i class="fas fa-circle"></i> P&B</button>
+                            <button class="btn btn-outline" onclick="aplicarEspelhar()"><i class="fas fa-arrow-left-right"></i> Espelhar</button>
+                            <button class="btn btn-outline" onclick="aplicarGirar()"><i class="fas fa-rotate-right"></i> Girar</button>
+                            <button class="btn btn-outline" onclick="aplicarSepia()"><i class="fas fa-leaf"></i> Sépia</button>
+                            <button class="btn btn-outline" onclick="aplicarRealcar()"><i class="fas fa-highlighter"></i> Realçar</button>
+                        </div>
+                        <div class="flex-row mt-12">
+                            <button class="btn btn-danger" onclick="resetarImagemEditor()"><i class="fas fa-undo"></i> Resetar</button>
+                            <button class="btn btn-success" onclick="salvarEdicao()"><i class="fas fa-save"></i> Salvar</button>
+                        </div>
+                        <div id="infoEditor" style="margin-top:12px; color:var(--text-secondary);"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-image"></i> Prévia</div>
+                        <canvas id="canvasEditor" class="canvas-editor"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== CHATBOT ===== -->
+<div class="chatbot-container" id="chatbot">
+    <div class="chatbot-header" onclick="toggleChat()">
+        <i class="fas fa-robot"></i> Assistente IA
+        <span class="badge">Online</span>
+        <span style="margin-left:auto;font-size:12px;color:var(--text-secondary);"><i class="fas fa-chevron-up" id="chatIcon"></i></span>
+    </div>
+    <div class="chatbot-body" id="chatBody">
+        <div class="chat-message bot">🤖 Olá! Sou seu assistente IA. Pergunte sobre:</div>
+        <div class="chat-message bot">📦 Estoque | 💳 Vendas | 📊 Relatórios | ❓ Ajuda</div>
+    </div>
+    <div class="chatbot-footer">
+        <input type="text" id="chatInput" placeholder="Digite sua mensagem..." onkeypress="if(event.key==='Enter')enviarMensagem()">
+        <button onclick="enviarMensagem()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+
+<script>
+// ============================================================
+//  SISTEMA DE LOGIN
+// ============================================================
+const CREDENCIAIS = {
+    usuario: 'Anthony',
+    senha: 'ANsdv212'
+};
+
+function fazerLogin(event) {
+    event.preventDefault();
+    const usuario = document.getElementById('loginUser').value.trim();
+    const senha = document.getElementById('loginPass').value.trim();
+    const errorElement = document.getElementById('loginError');
+    
+    errorElement.classList.remove('show');
+    
+    if (usuario === CREDENCIAIS.usuario && senha === CREDENCIAIS.senha) {
+        document.getElementById('loginOverlay').classList.add('hidden');
+        document.getElementById('app').style.display = 'block';
+        if (typeof init === 'function') init();
+        mostrarNotificacao('✅ Bem-vindo, Anthony! Sistema carregado com sucesso!', 'success');
+        localStorage.setItem('sistemaLogado', 'true');
+        return true;
+    } else {
+        errorElement.textContent = '❌ Usuário ou senha incorretos! Tente novamente.';
+        errorElement.classList.add('show');
+        document.getElementById('loginPass').value = '';
+        document.getElementById('loginPass').focus();
+        mostrarNotificacao('❌ Falha no login! Verifique suas credenciais.', 'danger');
+        return false;
+    }
+}
+
+function fazerLogout() {
+    if (confirm('Tem certeza que deseja sair do sistema?')) {
+        localStorage.removeItem('sistemaLogado');
+        location.reload();
+    }
+}
+
+function togglePassword() {
+    const passInput = document.getElementById('loginPass');
+    const icon = document.getElementById('toggleIcon');
+    if (passInput.type === 'password') {
+        passInput.type = 'text';
+        icon.className = 'fas fa-eye-slash';
+    } else {
+        passInput.type = 'password';
+        icon.className = 'fas fa-eye';
+    }
+}
+
+function verificarSessao() {
+    if (localStorage.getItem('sistemaLogado') === 'true') {
+        document.getElementById('loginOverlay').classList.add('hidden');
+        document.getElementById('app').style.display = 'block';
+        setTimeout(() => { if (typeof init === 'function') init(); }, 100);
+    }
+}
+
+// ============================================================
+//  ZERAR DADOS
+// ============================================================
+function zerarDados() {
+    if (!confirm('⚠️ ATENÇÃO! Isso vai apagar TODOS os dados do sistema (produtos, vendas, carrinho). Tem certeza?')) return;
+    if (!confirm('⚠️ ÚLTIMO AVISO! Todos os dados serão perdidos permanentemente. Confirmar?')) return;
+    
+    // Zerar arrays
+    produtos = [];
+    carrinho = [];
+    vendas = [];
+    produtoSelecionado = null;
+    imagemOriginal = null;
+    imagemAtual = null;
+    produtoEditor = null;
+    
+    // Limpar localStorage
+    localStorage.removeItem('sistemaVendasData');
+    
+    // Atualizar tudo
+    atualizarTudo();
+    
+    // Mostrar notificação
+    mostrarNotificacao('🗑️ Todos os dados foram zerados com sucesso! Agora você pode adicionar novos dados.', 'danger');
+    
+    // Salvar o estado vazio no localStorage
+    salvarDadosSilencioso();
+}
+
+// ============================================================
+//  RELÓGIO EM TEMPO REAL
+// ============================================================
+function atualizarRelogio() {
+    const now = new Date();
+    const horas = String(now.getHours()).padStart(2, '0');
+    const minutos = String(now.getMinutes()).padStart(2, '0');
+    const segundos = String(now.getSeconds()).padStart(2, '0');
+    const dia = String(now.getDate()).padStart(2, '0');
+    const mes = String(now.getMonth() + 1).padStart(2, '0');
+    const ano = now.getFullYear();
+    
+    document.getElementById('clockTime').textContent = `${horas}:${minutos}:${segundos}`;
+    document.getElementById('clockDate').textContent = `${dia}/${mes}/${ano}`;
+}
+
+// ============================================================
+//  CALENDÁRIO
+// ============================================================
+let mesAtual = new Date().getMonth();
+let anoAtual = new Date().getFullYear();
+
+function renderizarCalendario() {
+    const grid = document.getElementById('calendarioGrid');
+    const mesAno = document.getElementById('mesAno');
+    
+    const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
+                   'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+    mesAno.textContent = `${meses[mesAtual]} ${anoAtual}`;
+    
+    const primeiroDia = new Date(anoAtual, mesAtual, 1).getDay();
+    const diasNoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
+    const hoje = new Date();
+    
+    grid.innerHTML = '';
+    
+    const diasSemana = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
+    diasSemana.forEach(dia => {
+        const div = document.createElement('div');
+        div.className = 'dia-semana';
+        div.textContent = dia;
+        grid.appendChild(div);
+    });
+    
+    for (let i = 0; i < primeiroDia; i++) {
+        const div = document.createElement('div');
+        div.className = 'dia vazio';
+        div.textContent = '';
+        grid.appendChild(div);
+    }
+    
+    for (let dia = 1; dia <= diasNoMes; dia++) {
+        const div = document.createElement('div');
+        div.className = 'dia';
+        div.textContent = dia;
+        
+        if (dia === hoje.getDate() && mesAtual === hoje.getMonth() && anoAtual === hoje.getFullYear()) {
+            div.classList.add('hoje');
+        }
+        
+        const dataStr = `${String(dia).padStart(2, '0')}/${String(mesAtual + 1).padStart(2, '0')}/${anoAtual}`;
+        const vendasHoje = vendas.filter(v => v.data && v.data.includes(dataStr));
+        if (vendasHoje.length > 0) {
+            div.classList.add('com-venda');
+            const totalDia = vendasHoje.reduce((acc, v) => acc + v.total, 0);
+            const span = document.createElement('span');
+            span.className = 'valor-dia';
+            span.textContent = `R$ ${totalDia.toFixed(2)}`;
+            div.appendChild(span);
+        }
+        
+        grid.appendChild(div);
+    }
+}
+
+function mudarMes(delta) {
+    mesAtual += delta;
+    if (mesAtual > 11) { mesAtual = 0; anoAtual++; }
+    else if (mesAtual < 0) { mesAtual = 11; anoAtual--; }
+    renderizarCalendario();
+}
+
+// ============================================================
+//  GRÁFICOS
+// ============================================================
+let chartDashboard = null;
+let chartDiario = null;
+let chartSemanal = null;
+let chartMensal = null;
+
+function inicializarGraficos() {
+    // Dashboard
+    const ctxDash = document.getElementById('dashboardChart').getContext('2d');
+    chartDashboard = new Chart(ctxDash, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            datasets: [
+                {
+                    label: 'Faturamento (R$)',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    borderColor: '#00d4ff',
+                    backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: '#00d4ff'
+                },
+                {
+                    label: 'Previsão IA',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    borderColor: '#6c5ce7',
+                    borderDash: [5, 5],
+                    backgroundColor: 'rgba(108, 92, 231, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: '#6c5ce7'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    labels: { color: '#e0e8f0', font: { size: 12 } }
+                }
+            },
+            scales: {
+                y: {
+                    ticks: { color: '#8a9bb5' },
+                    grid: { color: 'rgba(255,255,255,0.05)' }
+                },
+                x: {
+                    ticks: { color: '#8a9bb5' },
+                    grid: { color: 'rgba(255,255,255,0.05)' }
+                }
+            }
+        }
+    });
+
+    // Gráfico Diário
+    const ctxDiario = document.getElementById('graficoDiario').getContext('2d');
+    chartDiario = new Chart(ctxDiario, {
+        type: 'bar',
+        data: {
+            labels: ['00h', '04h', '08h', '12h', '16h', '20h', '23h'],
+            datasets: [{
+                label: 'Vendas (R$)',
+                data: [0, 0, 0, 0, 0, 0, 0],
+                backgroundColor: 'rgba(0, 212, 255, 0.8)',
+                borderColor: '#00d4ff',
+                borderWidth: 1,
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { ticks: { color: '#8a9bb5', font: { size: 8 } }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                x: { ticks: { color: '#8a9bb5', font: { size: 8 } }, grid: { display: false } }
+            }
+        }
+    });
+
+    // Gráfico Semanal
+    const ctxSemanal = document.getElementById('graficoSemanal').getContext('2d');
+    chartSemanal = new Chart(ctxSemanal, {
+        type: 'line',
+        data: {
+            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            datasets: [{
+                label: 'Vendas (R$)',
+                data: [0, 0, 0, 0, 0, 0, 0],
+                borderColor: '#6c5ce7',
+                backgroundColor: 'rgba(108, 92, 231, 0.2)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { ticks: { color: '#8a9bb5', font: { size: 8 } }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                x: { ticks: { color: '#8a9bb5', font: { size: 8 } }, grid: { display: false } }
+            }
+        }
+    });
+
+    // Gráfico Mensal
+    const ctxMensal = document.getElementById('graficoMensal').getContext('2d');
+    chartMensal = new Chart(ctxMensal, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            datasets: [{
+                label: 'Vendas (R$)',
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                backgroundColor: 'rgba(0, 255, 136, 0.8)',
+                borderColor: '#00ff88',
+                borderWidth: 1,
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { ticks: { color: '#8a9bb5', font: { size: 8 } }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                x: { ticks: { color: '#8a9bb5', font: { size: 8 } }, grid: { display: false } }
+            }
+        }
+    });
+}
+
+function atualizarTodosGraficos() {
+    // Calcular faturamento total com BASE NAS VENDAS
+    const totalFaturamento = vendas.reduce((acc, v) => acc + v.total, 0);
+    document.getElementById('dashFaturamento').textContent = formatarMoeda(totalFaturamento);
+    
+    // Atualizar Dashboard com dados REAIS de faturamento
+    const dadosMensais = new Array(12).fill(0);
+    vendas.forEach(v => {
+        if (v.data) {
+            const partes = v.data.split('/');
+            if (partes.length >= 2) {
+                const mes = parseInt(partes[1]) - 1;
+                if (mes >= 0 && mes < 12) {
+                    dadosMensais[mes] += v.total;
+                }
+            }
+        }
+    });
+    chartDashboard.data.datasets[0].data = dadosMensais;
+    chartDashboard.data.datasets[1].data = dadosMensais.map(v => v * 1.15);
+    chartDashboard.update();
+
+    // Atualizar Diário
+    const hoje = new Date();
+    const hojeStr = hoje.toLocaleDateString();
+    const vendasHoje = vendas.filter(v => v.data && v.data.includes(hojeStr));
+    const dadosDiarios = [0, 0, 0, 0, 0, 0, 0];
+    vendasHoje.forEach(v => {
+        if (v.data) {
+            const partes = v.data.split(' ');
+            if (partes.length >= 2) {
+                const hora = parseInt(partes[1].split(':')[0] || '0');
+                const index = Math.min(6, Math.floor(hora / 4));
+                dadosDiarios[index] += v.total;
+            }
+        }
+    });
+    chartDiario.data.datasets[0].data = dadosDiarios;
+    chartDiario.update();
+    const totalHoje = vendasHoje.reduce((acc, v) => acc + v.total, 0);
+    document.getElementById('rendimentoDiarioValor').textContent = formatarMoeda(totalHoje);
+
+    // Atualizar Semanal
+    const dadosSemanais = [0, 0, 0, 0, 0, 0, 0];
+    for (let i = 0; i < 7; i++) {
+        const data = new Date(hoje);
+        data.setDate(data.getDate() - i);
+        const dataStr = data.toLocaleDateString();
+        const vendasDia = vendas.filter(v => v.data && v.data.includes(dataStr));
+        dadosSemanais[6 - i] = vendasDia.reduce((acc, v) => acc + v.total, 0);
+    }
+    chartSemanal.data.datasets[0].data = dadosSemanais;
+    chartSemanal.update();
+    const totalSemana = dadosSemanais.reduce((acc, v) => acc + v, 0);
+    document.getElementById('rendimentoSemanalValor').textContent = formatarMoeda(totalSemana);
+
+    // Atualizar Mensal
+    const dadosMensais2 = new Array(12).fill(0);
+    vendas.forEach(v => {
+        if (v.data) {
+            const partes = v.data.split('/');
+            if (partes.length >= 2) {
+                const mes = parseInt(partes[1]) - 1;
+                if (mes >= 0 && mes < 12) {
+                    dadosMensais2[mes] += v.total;
+                }
+            }
+        }
+    });
+    chartMensal.data.datasets[0].data = dadosMensais2;
+    chartMensal.update();
+    const mesAtualIndex = hoje.getMonth();
+    const totalMes = dadosMensais2[mesAtualIndex] || 0;
+    document.getElementById('rendimentoMensalValor').textContent = formatarMoeda(totalMes);
+}
+
+// ============================================================
+//  NOTIFICAÇÕES
+// ============================================================
+function mostrarNotificacao(mensagem, tipo = 'info') {
+    const container = document.getElementById('notificacoes');
+    const notif = document.createElement('div');
+    notif.className = `notificacao notificacao-${tipo}`;
+    
+    const icons = {
+        success: 'fa-check-circle',
+        danger: 'fa-exclamation-circle',
+        warning: 'fa-exclamation-triangle',
+        info: 'fa-info-circle'
+    };
+    
+    notif.innerHTML = `
+        <i class="fas ${icons[tipo] || icons.info}"></i>
+        <span>${mensagem}</span>
+        <button onclick="this.parentElement.remove()">×</button>
+    `;
+    
+    container.appendChild(notif);
+    setTimeout(() => {
+        if (notif.parentElement) notif.remove();
+    }, 5000);
+}
+
+// ============================================================
+//  CHATBOT
+// ============================================================
+function toggleChat() {
+    const chatbot = document.getElementById('chatbot');
+    chatbot.classList.toggle('open');
+    const icon = document.getElementById('chatIcon');
+    icon.className = chatbot.classList.contains('open') ? 'fas fa-chevron-down' : 'fas fa-chevron-up';
+}
+
+function enviarMensagem() {
+    const input = document.getElementById('chatInput');
+    const mensagem = input.value.trim();
+    if (!mensagem) return;
+    
+    adicionarMensagem(mensagem, 'user');
+    input.value = '';
+    
+    setTimeout(() => {
+        const resposta = processarMensagem(mensagem.toLowerCase());
+        adicionarMensagem(resposta, 'bot');
+    }, 500);
+}
+
+function adicionarMensagem(texto, tipo) {
+    const chatBody = document.getElementById('chatBody');
+    const div = document.createElement('div');
+    div.className = `chat-message ${tipo}`;
+    div.textContent = texto;
+    chatBody.appendChild(div);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function processarMensagem(msg) {
+    if (msg.includes('estoque')) return '📦 Para ver o estoque, acesse a aba "Produtos" ou veja os relatórios de estoque.';
+    if (msg.includes('venda') || msg.includes('vender')) return '💳 Para fazer uma venda, vá na aba "Vendas", selecione o produto e adicione ao carrinho.';
+    if (msg.includes('relatório') || msg.includes('relatorio')) return '📊 Os relatórios estão na aba "Relatórios". Você pode ver lucro, estoque e vendas.';
+    if (msg.includes('gráfico') || msg.includes('grafico')) return '📈 Os gráficos estão no Dashboard!';
+    if (msg.includes('ajuda') || msg.includes('tutorial')) return '❓ Use as abas para navegar. O sistema permite cadastrar produtos, fazer vendas e gerar relatórios.';
+    if (msg.includes('oi') || msg.includes('olá') || msg.includes('ola')) return '👋 Olá! Como posso ajudar você hoje?';
+    if (msg.includes('obrigado') || msg.includes('valeu')) return '😊 Por nada! Estou aqui para ajudar.';
+    return '🤔 Desculpe, não entendi. Tente perguntar sobre: estoque, venda, relatório, gráfico ou ajuda.';
+}
+
+// ============================================================
+//  TEMAS
+// ============================================================
+function alternarTema() {
+    const temas = ['dark_tech', 'light_clean', 'neon_punk'];
+    const atual = document.body.className || 'dark_tech';
+    const index = temas.indexOf(atual);
+    const proximo = temas[(index + 1) % temas.length];
+    
+    document.body.className = proximo === 'dark_tech' ? '' : proximo;
+    localStorage.setItem('tema_sistema', proximo);
+    
+    const nomes = {
+        'dark_tech': 'Dark Tech',
+        'light_clean': 'Light Clean',
+        'neon_punk': 'Neon Punk'
+    };
+    
+    mostrarNotificacao(`🎨 Tema alterado para: ${nomes[proximo]}`, 'info');
+}
+
+// ============================================================
+//  MOEDAS
+// ============================================================
+function alterarMoeda(moeda) {
+    moedaAtual = moeda;
+    document.querySelectorAll('.moeda-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent.trim() === moeda) btn.classList.add('active');
+    });
+    atualizarTudo();
+    mostrarNotificacao(`💱 Moeda alterada para ${moedas[moeda].nome}`, 'info');
+}
+
+function formatarMoeda(valor) {
+    return `${moedas[moedaAtual].simbolo} ${(valor / moedas[moedaAtual].taxa).toFixed(2)}`;
+}
+
+// ============================================================
+//  EXPORTAÇÃO
+// ============================================================
+function exportarCSV() {
+    if (produtos.length === 0) {
+        mostrarNotificacao('Nenhum produto para exportar!', 'warning');
+        return;
+    }
+    
+    const cabecalhos = ['Código', 'Nome', 'Quantidade', 'Valor'];
+    const linhas = produtos.map(p => [p.codigo, p.nome, p.quantidade, p.valor.toFixed(2)]);
+    
+    let csv = cabecalhos.join(',') + '\n';
+    linhas.forEach(row => {
+        csv += row.join(',') + '\n';
+    });
+    
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `produtos_${new Date().toISOString().slice(0,10)}.csv`;
+    link.click();
+    
+    mostrarNotificacao('✅ CSV exportado com sucesso!', 'success');
+}
+
+function exportarPDF() {
+    if (produtos.length === 0) {
+        mostrarNotificacao('Nenhum produto para exportar!', 'warning');
+        return;
+    }
+    
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    doc.setFontSize(18);
+    doc.text('Relatório de Produtos', 14, 22);
+    doc.setFontSize(12);
+    doc.text(`Gerado em: ${new Date().toLocaleString()}`, 14, 32);
+    
+    const dados = produtos.map(p => [p.codigo, p.nome, p.quantidade, `R$ ${p.valor.toFixed(2)}`]);
+    
+    doc.autoTable({
+        head: [['Código', 'Nome', 'Quantidade', 'Valor']],
+        body: dados,
+        startY: 40,
+        theme: 'dark',
+        headStyles: { fillColor: [0, 212, 255], textColor: [0, 0, 0] }
+    });
+    
+    doc.save(`produtos_${new Date().toISOString().slice(0,10)}.pdf`);
+    mostrarNotificacao('✅ PDF exportado com sucesso!', 'success');
+}
+
+// ============================================================
+//  DADOS GLOBAIS
+// ============================================================
+let produtos = [];
+let carrinho = [];
+let vendas = [];
+let produtoSelecionado = null;
+let imagemOriginal = null;
+let imagemAtual = null;
+let produtoEditor = null;
+let canvas = null, ctx = null;
+let imagemCanvas = null;
+let moedaAtual = 'BRL';
+
+const moedas = {
+    'BRL': { simbolo: 'R$', taxa: 1, nome: 'Real' },
+    'USD': { simbolo: 'US$', taxa: 5.0, nome: 'Dólar' },
+    'EUR': { simbolo: '€', taxa: 5.4, nome: 'Euro' }
+};
+
+// ============================================================
+//  INICIALIZAÇÃO
+// ============================================================
+function init() {
+    // CARREGAR DADOS DO LOCALSTORAGE SE EXISTIR
+    carregarDadosSilencioso();
+    
+    // Se não houver dados, manter arrays vazios (SEM EXEMPLOS)
+    if (!localStorage.getItem('sistemaVendasData')) {
+        produtos = [];
+        vendas = [];
+        carrinho = [];
+    }
+    
+    inicializarGraficos();
+    atualizarTudo();
+    setupTabs();
+    canvas = document.getElementById('canvasEditor');
+    ctx = canvas.getContext('2d');
+    
+    // Relógio
+    atualizarRelogio();
+    setInterval(atualizarRelogio, 1000);
+    
+    // Atualizações automáticas
+    setInterval(() => {
+        atualizarTodosGraficos();
+        renderizarCalendario();
+        atualizarDashboard();
+    }, 30000);
+    
+    // Status animado
+    setInterval(() => {
+        const dots = ["ONLINE", "ATIVO", "ONLINE", "SECURE"];
+        const idx = Math.floor(Date.now() / 2000) % dots.length;
+        document.getElementById('statusTexto').textContent = dots[idx];
+    }, 2000);
+    
+    // Auto-save
+    setInterval(() => { salvarDadosSilencioso(); }, 60000);
+    
+    setTimeout(() => {
+        mostrarNotificacao('🚀 Sistema iniciado com sucesso! Dados carregados do localStorage.', 'success');
+        atualizarTodosGraficos();
+        renderizarCalendario();
+    }, 500);
+}
+
+function setupTabs() {
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            document.getElementById(this.dataset.tab).classList.add('active');
+            if (this.dataset.tab === 'tab-dashboard') {
+                setTimeout(() => {
+                    atualizarTodosGraficos();
+                    renderizarCalendario();
+                    atualizarDashboard();
+                }, 100);
+            }
+        });
+    });
+}
+
+// ============================================================
+//  ATUALIZAR UI
+// ============================================================
+function atualizarTudo() {
+    atualizarTabelaProdutos();
+    atualizarCombos();
+    atualizarCarrinho();
+    atualizarStatus();
+    atualizarUltimasVendas();
+    calcularFaturamento();
+    atualizarDashboard();
+    atualizarTodosGraficos();
+    renderizarCalendario();
+}
+
+function atualizarTabelaProdutos() {
+    const tbody = document.getElementById('tabelaProdutos');
+    tbody.innerHTML = '';
+    const search = document.getElementById('searchProduto').value.toLowerCase();
+    produtos.filter(p => p.nome.toLowerCase().includes(search)).forEach(p => {
+        const tr = document.createElement('tr');
+        tr.dataset.codigo = p.codigo;
+        tr.innerHTML = `<td>${String(p.codigo).padStart(4, '0')}</td><td>${p.nome}</td><td>${p.quantidade}</td><td>${formatarMoeda(p.valor)}</td>`;
+        tr.addEventListener('click', () => selecionarProduto(p.codigo));
+        tbody.appendChild(tr);
+    });
+}
+
+function atualizarCombos() {
+    const comboV = document.getElementById('comboVendas');
+    const comboR = document.getElementById('comboRapido');
+    const options = produtos.map(p => `<option value="${p.codigo}">${String(p.codigo).padStart(4, '0')} - ${p.nome}</option>`).join('');
+    comboV.innerHTML = options;
+    comboR.innerHTML = options;
+    if (produtos.length > 0) { comboV.value = produtos[0].codigo; comboR.value = produtos[0].codigo; mostrarInfoVenda(); }
+}
+
+function atualizarCarrinho() {
+    const tbody = document.getElementById('tabelaCarrinho');
+    tbody.innerHTML = '';
+    let total = 0, itens = 0;
+    carrinho.forEach((item, idx) => {
+        const subtotal = item.quantidade * item.produto.valor;
+        total += subtotal;
+        itens += item.quantidade;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${item.produto.nome}</td><td>${item.quantidade}</td><td>${formatarMoeda(item.produto.valor)}</td><td>${formatarMoeda(subtotal)}</td>`;
+        tr.dataset.index = idx;
+        tr.addEventListener('click', () => selecionarItemCarrinho(idx));
+        tbody.appendChild(tr);
+    });
+    document.getElementById('totalCarrinho').textContent = formatarMoeda(total);
+    document.getElementById('itensCarrinho').textContent = `${itens} itens`;
+}
+
+function atualizarStatus() {
+    const totalEstoque = produtos.reduce((acc, p) => acc + p.quantidade, 0);
+    document.getElementById('statusProdutos').textContent = String(produtos.length).padStart(2, '0');
+    document.getElementById('statusEstoque').textContent = String(totalEstoque).padStart(3, '0');
+    document.getElementById('statusVendas').textContent = String(vendas.length).padStart(2, '0');
+}
+
+function atualizarUltimasVendas() {
+    const el = document.getElementById('ultimasVendas');
+    if (vendas.length === 0) { el.textContent = 'Nenhuma venda registrada.'; return; }
+    const ultimas = vendas.slice(-5).reverse();
+    el.textContent = ultimas.map(v => `💰 ${v.data} - Total ${formatarMoeda(v.total)} (${v.itens.length} itens)`).join('\n');
+}
+
+function calcularFaturamento() {
+    // FATURAMENTO BASEADO NAS VENDAS REALIZADAS
+    const total = vendas.reduce((acc, v) => acc + v.total, 0);
+    document.getElementById('faturamentoRapido').textContent = formatarMoeda(total);
+}
+
+function atualizarDashboard() {
+    const totalEstoque = produtos.reduce((acc, p) => acc + p.quantidade, 0);
+    const totalFaturamento = vendas.reduce((acc, v) => acc + v.total, 0);
+    
+    document.getElementById('dashProdutos').textContent = produtos.length;
+    document.getElementById('dashEstoque').textContent = totalEstoque;
+    document.getElementById('dashVendas').textContent = vendas.length;
+    document.getElementById('dashFaturamento').textContent = formatarMoeda(totalFaturamento);
+}
+
+// ============================================================
+//  PRODUTOS
+// ============================================================
+function selecionarProduto(codigo) {
+    const p = produtos.find(prod => prod.codigo === codigo);
+    if (!p) return;
+    produtoSelecionado = p;
+    document.getElementById('nomeProdSelecionado').textContent = p.nome;
+    document.getElementById('infoProdSelecionado').textContent = `💰 ${formatarMoeda(p.valor)} | 📊 ${p.quantidade} unidades`;
+    const preview = document.getElementById('previewProduto');
+    if (p.imagem) {
+        preview.innerHTML = `<img src="${p.imagem}" alt="${p.nome}">`;
+    } else {
+        preview.innerHTML = `<span class="img-placeholder"><i class="fas fa-camera"></i> Sem imagem</span>`;
+    }
+    document.querySelectorAll('#tabelaProdutos tr').forEach(tr => {
+        tr.classList.remove('selected');
+        if (parseInt(tr.dataset.codigo) === codigo) tr.classList.add('selected');
+    });
+}
+
+function cadastrarProduto() {
+    const nome = document.getElementById('inputNome').value.trim();
+    const qtd = parseInt(document.getElementById('inputQtd').value);
+    const valor = parseFloat(document.getElementById('inputValor').value);
+    if (!nome) return mostrarNotificacao('Digite o nome do produto!', 'danger');
+    if (isNaN(qtd) || qtd < 0) return mostrarNotificacao('Quantidade inválida!', 'danger');
+    if (isNaN(valor) || valor <= 0) return mostrarNotificacao('Valor inválido!', 'danger');
+    
+    const novo = { codigo: produtos.length ? Math.max(...produtos.map(p => p.codigo)) + 1 : 1, nome, quantidade: qtd, valor, imagem: null };
+    produtos.push(novo);
+    document.getElementById('inputNome').value = '';
+    document.getElementById('inputQtd').value = '';
+    document.getElementById('inputValor').value = '';
+    atualizarTudo();
+    salvarDadosSilencioso(); // SALVAR NO LOCALSTORAGE
+    mostrarNotificacao(`✅ Produto "${nome}" cadastrado e salvo!`, 'success');
+}
+
+function editarProduto() {
+    if (!produtoSelecionado) return mostrarNotificacao('Selecione um produto!', 'warning');
+    const p = produtoSelecionado;
+    const novoNome = prompt('Novo nome:', p.nome);
+    if (novoNome === null) return;
+    const novaQtd = parseInt(prompt('Nova quantidade:', p.quantidade));
+    if (isNaN(novaQtd) || novaQtd < 0) return mostrarNotificacao('Quantidade inválida!', 'danger');
+    const novoValor = parseFloat(prompt('Novo valor (R$):', p.valor));
+    if (isNaN(novoValor) || novoValor <= 0) return mostrarNotificacao('Valor inválido!', 'danger');
+    p.nome = novoNome.trim() || p.nome;
+    p.quantidade = novaQtd;
+    p.valor = novoValor;
+    atualizarTudo();
+    salvarDadosSilencioso(); // SALVAR NO LOCALSTORAGE
+    selecionarProduto(p.codigo);
+    mostrarNotificacao('✅ Produto atualizado e salvo!', 'success');
+}
+
+function excluirProduto() {
+    if (!produtoSelecionado) return mostrarNotificacao('Selecione um produto!', 'warning');
+    if (!confirm(`Excluir "${produtoSelecionado.nome}"?`)) return;
+    produtos = produtos.filter(p => p.codigo !== produtoSelecionado.codigo);
+    produtoSelecionado = null;
+    document.getElementById('nomeProdSelecionado').textContent = '';
+    document.getElementById('infoProdSelecionado').textContent = '';
+    document.getElementById('previewProduto').innerHTML = `<span class="img-placeholder"><i class="fas fa-camera"></i> Selecione um produto</span>`;
+    atualizarTudo();
+    salvarDadosSilencioso(); // SALVAR NO LOCALSTORAGE
+    mostrarNotificacao('🗑️ Produto excluído!', 'danger');
+}
+
+function filtrarProdutos() { atualizarTabelaProdutos(); }
+function limparBusca() { document.getElementById('searchProduto').value = ''; filtrarProdutos(); }
+
+function adicionarImagem() {
+    if (!produtoSelecionado) return mostrarNotificacao('Selecione um produto!', 'warning');
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            produtoSelecionado.imagem = ev.target.result;
+            selecionarProduto(produtoSelecionado.codigo);
+            salvarDadosSilencioso(); // SALVAR NO LOCALSTORAGE
+            mostrarNotificacao('✅ Imagem adicionada e salva!', 'success');
+        };
+        reader.readAsDataURL(file);
+    };
+    input.click();
+}
+
+function removerImagem() {
+    if (!produtoSelecionado) return mostrarNotificacao('Selecione um produto!', 'warning');
+    produtoSelecionado.imagem = null;
+    imagemOriginal = null;
+    imagemAtual = null;
+    selecionarProduto(produtoSelecionado.codigo);
+    salvarDadosSilencioso(); // SALVAR NO LOCALSTORAGE
+    mostrarNotificacao('🗑️ Imagem removida!', 'info');
+}
+
+// ============================================================
+//  VENDAS
+// ============================================================
+function mostrarInfoVenda() {
+    const codigo = parseInt(document.getElementById('comboVendas').value);
+    const p = produtos.find(prod => prod.codigo === codigo);
+    if (!p) return;
+    const preview = document.getElementById('previewVenda');
+    if (p.imagem) {
+        preview.innerHTML = `<img src="${p.imagem}" alt="${p.nome}" style="max-height:120px;">`;
+    } else {
+        preview.innerHTML = `<span class="img-placeholder"><i class="fas fa-camera"></i> Sem imagem</span>`;
+    }
+    document.getElementById('infoVendaSelecionada').textContent = `💰 ${formatarMoeda(p.valor)} | Estoque: ${p.quantidade}`;
+}
+
+function ajustarQtd(delta) {
+    const input = document.getElementById('qtdVenda');
+    let val = parseInt(input.value) || 1;
+    val = Math.max(1, val + delta);
+    input.value = val;
+}
+
+function adicionarAoCarrinho() {
+    const codigo = parseInt(document.getElementById('comboVendas').value);
+    const qtd = parseInt(document.getElementById('qtdVenda').value) || 1;
+    const p = produtos.find(prod => prod.codigo === codigo);
+    if (!p) return mostrarNotificacao('Selecione um produto!', 'warning');
+    if (qtd > p.quantidade) return mostrarNotificacao(`Estoque insuficiente! Disponível: ${p.quantidade}`, 'danger');
+    carrinho.push({ produto: p, quantidade: qtd });
+    atualizarCarrinho();
+    document.getElementById('qtdVenda').value = 1;
+    mostrarNotificacao(`✅ ${qtd}x ${p.nome} adicionado ao carrinho`, 'success');
+}
+
+function vendaRapida() {
+    const codigo = parseInt(document.getElementById('comboRapido').value);
+    const qtd = parseInt(document.getElementById('qtdRapida').value) || 1;
+    const p = produtos.find(prod => prod.codigo === codigo);
+    if (!p) return mostrarNotificacao('Selecione um produto!', 'warning');
+    if (qtd > p.quantidade) return mostrarNotificacao(`Estoque insuficiente! Disponível: ${p.quantidade}`, 'danger');
+    p.quantidade -= qtd;
+    const total = qtd * p.valor;
+    const dataAtual = new Date().toLocaleString();
+    vendas.push({ itens: [{ produto: p.nome, quantidade: qtd, valor: p.valor, subtotal: total }], total, data: dataAtual });
+    atualizarTudo();
+    salvarDadosSilencioso(); // SALVAR NO LOCALSTORAGE
+    mostrarNotificacao(`✅ Venda rápida: ${qtd}x ${p.nome} - Total ${formatarMoeda(total)}`, 'success');
+}
+
+// ============================================================
+//  CARRINHO
+// ============================================================
+let itemCarrinhoSelecionado = null;
+
+function selecionarItemCarrinho(idx) {
+    itemCarrinhoSelecionado = idx;
+    document.querySelectorAll('#tabelaCarrinho tr').forEach((tr, i) => {
+        tr.classList.toggle('selected', i === idx);
+    });
+}
+
+function removerItemCarrinho() {
+    if (itemCarrinhoSelecionado === null || itemCarrinhoSelecionado >= carrinho.length) {
+        return mostrarNotificacao('Selecione um item!', 'warning');
+    }
+    carrinho.splice(itemCarrinhoSelecionado, 1);
+    itemCarrinhoSelecionado = null;
+    atualizarCarrinho();
+    mostrarNotificacao('🗑️ Item removido do carrinho', 'danger');
+}
+
+function limparCarrinho() {
+    if (carrinho.length === 0) return;
+    if (!confirm('Limpar carrinho?')) return;
+    carrinho = [];
+    itemCarrinhoSelecionado = null;
+    atualizarCarrinho();
+    mostrarNotificacao('🧹 Carrinho limpo!', 'info');
+}
+
+function finalizarVenda() {
+    if (carrinho.length === 0) return mostrarNotificacao('Carrinho vazio!', 'warning');
+    const total = carrinho.reduce((acc, item) => acc + item.quantidade * item.produto.valor, 0);
+    if (!confirm(`Finalizar venda? Total: ${formatarMoeda(total)}`)) return;
+    
+    const itens = carrinho.map(item => ({
+        produto: item.produto.nome,
+        quantidade: item.quantidade,
+        valor: item.produto.valor,
+        subtotal: item.quantidade * item.produto.valor
+    }));
+    
+    carrinho.forEach(item => {
+        const p = produtos.find(prod => prod.codigo === item.produto.codigo);
+        if (p) p.quantidade -= item.quantidade;
+    });
+    
+    const dataAtual = new Date().toLocaleString();
+    vendas.push({ itens, total, data: dataAtual });
+    carrinho = [];
+    itemCarrinhoSelecionado = null;
+    atualizarTudo();
+    salvarDadosSilencioso(); // SALVAR NO LOCALSTORAGE
+    mostrarNotificacao(`✅ Venda finalizada! Total: ${formatarMoeda(total)}`, 'success');
+}
+
+// ============================================================
+//  RELATÓRIOS
+// ============================================================
+function mostrarNoRelatorio(texto) {
+    document.getElementById('relatorioTexto').textContent = texto;
+    document.querySelector('.tab-btn[data-tab="tab-relatorios"]').click();
+}
+
+function mostrarRelatorioLucro() {
+    if (produtos.length === 0) return mostrarNotificacao('Nenhum produto!', 'warning');
+    const MARGEM = 0.30;
+    let total = 0, linhas = '📈 ANÁLISE DE LUCRO\n\n';
+    linhas += 'PRODUTO                     VALOR    LUCRO UNIT.  ESTOQUE\n';
+    linhas += '─'.repeat(60) + '\n';
+    produtos.forEach(p => {
+        const lucro = p.valor * MARGEM;
+        const lucroEst = lucro * p.quantidade;
+        total += lucroEst;
+        linhas += `${p.nome.padEnd(25)} ${formatarMoeda(p.valor).padStart(10)} ${formatarMoeda(lucro).padStart(12)} ${p.quantidade.toString().padStart(8)}\n`;
+    });
+    linhas += '─'.repeat(60) + '\n';
+    linhas += `💰 LUCRO TOTAL ESTIMADO: ${formatarMoeda(total)}\n`;
+    linhas += `📊 MÉDIA DE LUCRO: ${formatarMoeda(total/produtos.length)}`;
+    mostrarNoRelatorio(linhas);
+}
+
+function mostrarRelatorioEstoque() {
+    if (produtos.length === 0) return mostrarNotificacao('Nenhum produto!', 'warning');
+    let linhas = '📋 RELATÓRIO DE ESTOQUE\n\n';
+    linhas += 'CÓD  PRODUTO                     QTD       VALOR     TOTAL\n';
+    linhas += '─'.repeat(70) + '\n';
+    let totalItens = 0, totalValor = 0;
+    produtos.forEach(p => {
+        const total = p.quantidade * p.valor;
+        totalItens += p.quantidade;
+        totalValor += total;
+        linhas += `${String(p.codigo).padStart(4)} ${p.nome.padEnd(25)} ${p.quantidade.toString().padStart(6)} ${formatarMoeda(p.valor).padStart(10)} ${formatarMoeda(total).padStart(12)}\n`;
+    });
+    linhas += '─'.repeat(70) + '\n';
+    linhas += `📊 TOTAL DE ITENS: ${totalItens}\n`;
+    linhas += `💰 VALOR TOTAL DO ESTOQUE: ${formatarMoeda(totalValor)}`;
+    mostrarNoRelatorio(linhas);
+}
+
+function mostrarRelatorioVendas() {
+    if (vendas.length === 0) return mostrarNotificacao('Nenhuma venda!', 'warning');
+    let linhas = '💳 RELATÓRIO DE VENDAS\n\n';
+    vendas.forEach((v, i) => {
+        linhas += `VENDA #${i+1} - ${v.data}\n`;
+        linhas += '─'.repeat(40) + '\n';
+        v.itens.forEach(item => {
+            linhas += `  ${item.produto} x${item.quantidade} = ${formatarMoeda(item.subtotal)}\n`;
+        });
+        linhas += `  TOTAL: ${formatarMoeda(v.total)}\n`;
+        linhas += '─'.repeat(40) + '\n\n';
+    });
+    const totalGeral = vendas.reduce((acc, v) => acc + v.total, 0);
+    linhas += `💰 TOTAL GERAL: ${formatarMoeda(totalGeral)}\n`;
+    linhas += `📊 NÚMERO DE VENDAS: ${vendas.length}`;
+    mostrarNoRelatorio(linhas);
+}
+
+function mostrarResumoGeral() {
+    const totalEstoque = produtos.reduce((acc, p) => acc + p.quantidade, 0);
+    const valorEstoque = produtos.reduce((acc, p) => acc + p.quantidade * p.valor, 0);
+    const totalVendas = vendas.reduce((acc, v) => acc + v.total, 0);
+    let linhas = '📊 RESUMO GERAL\n\n';
+    linhas += `📦 TOTAL DE PRODUTOS: ${produtos.length}\n`;
+    linhas += `📊 TOTAL EM ESTOQUE: ${totalEstoque}\n`;
+    linhas += `💰 VALOR TOTAL DO ESTOQUE: ${formatarMoeda(valorEstoque)}\n`;
+    linhas += `💳 TOTAL DE VENDAS: ${vendas.length}\n`;
+    linhas += `💰 FATURAMENTO TOTAL: ${formatarMoeda(totalVendas)}\n`;
+    if (produtos.length) {
+        const lucro = produtos.reduce((acc, p) => acc + p.quantidade * p.valor * 0.30, 0);
+        linhas += `📈 LUCRO ESTIMADO NO ESTOQUE: ${formatarMoeda(lucro)}`;
+    }
+    mostrarNoRelatorio(linhas);
+}
+
+// ============================================================
+//  GESTÃO
+// ============================================================
+function resultadoGestao(texto) { document.getElementById('resultadoGestao').textContent = texto; }
+
+function abrirMarketing() {
+    resultadoGestao(`📢 ESTRATÉGIAS DE MARKETING
+
+1. Presença digital nas redes sociais
+2. Site/landing page
+3. Email marketing
+4. Promoções sazonais
+5. Parcerias com influenciadores
+6. Marketing de conteúdo
+7. Programa de fidelidade
+
+💰 TRÁFEGO PAGO: Google/Facebook Ads
+RETORNO MÉDIO: 2x a 5x do investimento`);
+}
+
+function abrirObservatorio() {
+    if (produtos.length === 0) return mostrarNotificacao('Cadastre produtos!', 'warning');
+    const maisCaro = produtos.reduce((a,b) => a.valor > b.valor ? a : b);
+    const maisBarato = produtos.reduce((a,b) => a.valor < b.valor ? a : b);
+    const totalEstoque = produtos.reduce((acc, p) => acc + p.quantidade, 0);
+    const media = produtos.reduce((acc, p) => acc + p.valor, 0) / produtos.length;
+    resultadoGestao(`🔭 ANÁLISE DO SEU NEGÓCIO
+
+💎 PRODUTO MAIS CARO: ${maisCaro.nome} - ${formatarMoeda(maisCaro.valor)}
+💰 PRODUTO MAIS BARATO: ${maisBarato.nome} - ${formatarMoeda(maisBarato.valor)}
+📦 TOTAL EM ESTOQUE: ${totalEstoque} unidades
+📊 VALOR MÉDIO: ${formatarMoeda(media)}
+
+📈 TENDÊNCIAS: E-commerce em alta, mobile, pagamentos digitais.`);
+}
+
+function abrirRendimento() {
+    if (produtos.length === 0) return mostrarNotificacao('Cadastre produtos!', 'warning');
+    const taxa = 0.30;
+    let total = 0, linhas = '💹 RENDIMENTO ESTIMADO\n\n';
+    produtos.forEach(p => {
+        const vendasEst = Math.floor(p.quantidade * taxa);
+        const fat = vendasEst * p.valor;
+        total += fat;
+        linhas += `${p.nome}: ${p.quantidade} un. → ${vendasEst} vendas est. = ${formatarMoeda(fat)}\n`;
+    });
+    linhas += `\n💰 FATURAMENTO TOTAL ESTIMADO: ${formatarMoeda(total)}`;
+    resultadoGestao(linhas);
+}
+
+function abrirSimulacao() {
+    if (produtos.length === 0) return mostrarNotificacao('Cadastre produtos!', 'warning');
+    const pct = prompt('Percentual a ser vendido (ex: 30):', '30');
+    if (pct === null) return;
+    const perc = parseFloat(pct);
+    if (isNaN(perc) || perc <= 0 || perc > 100) return mostrarNotificacao('Valor entre 1 e 100!', 'danger');
+    let linhas = `📊 SIMULAÇÃO - ${perc}% de vendas\n\n`;
+    let total = 0;
+    produtos.forEach(p => {
+        const venda = Math.floor((p.quantidade * perc) / 100);
+        const fat = venda * p.valor;
+        total += fat;
+        linhas += `${p.nome.padEnd(25)} ${venda.toString().padStart(4)} un. = ${formatarMoeda(fat)}\n`;
+    });
+    linhas += `\n💰 TOTAL PREVISTO: ${formatarMoeda(total)}`;
+    resultadoGestao(linhas);
+}
+
+// ============================================================
+//  EDITOR DE IMAGEM
+// ============================================================
+function abrirEditor() {
+    if (!produtoSelecionado) return mostrarNotificacao('Selecione um produto com imagem!', 'warning');
+    if (!produtoSelecionado.imagem) return mostrarNotificacao('Produto sem imagem!', 'warning');
+    produtoEditor = produtoSelecionado;
+    imagemOriginal = produtoSelecionado.imagem;
+    imagemAtual = produtoSelecionado.imagem;
+    document.getElementById('infoEditor').textContent = `✏️ Editando: ${produtoSelecionado.nome}`;
+    document.getElementById('sliderBrilho').value = 1.0;
+    document.getElementById('sliderContraste').value = 1.0;
+    document.getElementById('sliderNitidez').value = 1.0;
+    document.getElementById('valBrilho').textContent = '1.0';
+    document.getElementById('valContraste').textContent = '1.0';
+    document.getElementById('valNitidez').textContent = '1.0';
+    carregarImagemCanvas(imagemOriginal);
+    document.querySelector('.tab-btn[data-tab="tab-editor"]').click();
+    mostrarNotificacao('🎨 Editor de imagem aberto!', 'info');
+}
+
+function carregarImagemCanvas(base64) {
+    const img = new Image();
+    img.onload = function() {
+        imagemCanvas = img;
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+    };
+    img.src = base64;
+}
+
+function aplicarEfeitosCanvas() {
+    if (!imagemCanvas) return;
+    const brilho = parseFloat(document.getElementById('sliderBrilho').value);
+    const contraste = parseFloat(document.getElementById('sliderContraste').value);
+    const nitidez = parseFloat(document.getElementById('sliderNitidez').value);
+    document.getElementById('valBrilho').textContent = brilho.toFixed(2);
+    document.getElementById('valContraste').textContent = contraste.toFixed(2);
+    document.getElementById('valNitidez').textContent = nitidez.toFixed(2);
+    const img = new Image();
+    img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        const factor = (259 * (contraste * 100 + 255)) / (255 * (259 - contraste * 100));
+        for (let i = 0; i < data.length; i += 4) {
+            data[i] = Math.min(255, Math.max(0, factor * (data[i] - 128) + 128 + (brilho - 1) * 50));
+            data[i+1] = Math.min(255, Math.max(0, factor * (data[i+1] - 128) + 128 + (brilho - 1) * 50));
+            data[i+2] = Math.min(255, Math.max(0, factor * (data[i+2] - 128) + 128 + (brilho - 1) * 50));
+        }
+        ctx.putImageData(imageData, 0, 0);
+        imagemAtual = canvas.toDataURL('image/png');
+    };
+    img.src = imagemOriginal;
+}
+
+function aplicarBlur() {
+    if (!imagemCanvas) return;
+    const img = new Image();
+    img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        const w = canvas.width, h = canvas.height;
+        const copy = new Uint8ClampedArray(data);
+        for (let y = 1; y < h-1; y++) {
+            for (let x = 1; x < w-1; x++) {
+                const idx = (y * w + x) * 4;
+                for (let c = 0; c < 3; c++) {
+                    let sum = 0;
+                    for (let dy = -1; dy <= 1; dy++) {
+                        for (let dx = -1; dx <= 1; dx++) {
+                            const nidx = ((y+dy) * w + (x+dx)) * 4 + c;
+                            sum += copy[nidx];
+                        }
+                    }
+                    data[idx + c] = sum / 9;
+                }
+            }
+        }
+        ctx.putImageData(imageData, 0, 0);
+        imagemAtual = canvas.toDataURL('image/png');
+        mostrarNotificacao('✨ Efeito Blur aplicado!', 'info');
+    };
+    img.src = imagemAtual || imagemOriginal;
+}
+
+function aplicarPb() {
+    if (!imagemCanvas) return;
+    const img = new Image();
+    img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        for (let i = 0; i < data.length; i += 4) {
+            const gray = 0.299 * data[i] + 0.587 * data[i+1] + 0.114 * data[i+2];
+            data[i] = data[i+1] = data[i+2] = gray;
+        }
+        ctx.putImageData(imageData, 0, 0);
+        imagemAtual = canvas.toDataURL('image/png');
+        mostrarNotificacao('⚫ Efeito Preto & Branco aplicado!', 'info');
+    };
+    img.src = imagemAtual || imagemOriginal;
+}
+
+function aplicarEspelhar() {
+    if (!imagemCanvas) return;
+    const img = new Image();
+    img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(img, 0, 0);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        imagemAtual = canvas.toDataURL('image/png');
+        mostrarNotificacao('🔄 Imagem espelhada!', 'info');
+    };
+    img.src = imagemAtual || imagemOriginal;
+}
+
+function aplicarGirar() {
+    if (!imagemCanvas) return;
+    const img = new Image();
+    img.onload = function() {
+        canvas.width = img.height;
+        canvas.height = img.width;
+        ctx.translate(canvas.width/2, canvas.height/2);
+        ctx.rotate(Math.PI/2);
+        ctx.drawImage(img, -img.width/2, -img.height/2);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        imagemAtual = canvas.toDataURL('image/png');
+        mostrarNotificacao('🔄 Imagem girada 90°!', 'info');
+    };
+    img.src = imagemAtual || imagemOriginal;
+}
+
+function aplicarSepia() {
+    if (!imagemCanvas) return;
+    const img = new Image();
+    img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        for (let i = 0; i < data.length; i += 4) {
+            const r = data[i], g = data[i+1], b = data[i+2];
+            data[i] = Math.min(255, 0.393 * r + 0.769 * g + 0.189 * b);
+            data[i+1] = Math.min(255, 0.349 * r + 0.686 * g + 0.168 * b);
+            data[i+2] = Math.min(255, 0.272 * r + 0.534 * g + 0.131 * b);
+        }
+        ctx.putImageData(imageData, 0, 0);
+        imagemAtual = canvas.toDataURL('image/png');
+        mostrarNotificacao('🟫 Efeito Sépia aplicado!', 'info');
+    };
+    img.src = imagemAtual || imagemOriginal;
+}
+
+function aplicarRealcar() {
+    if (!imagemCanvas) return;
+    const img = new Image();
+    img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        const w = canvas.width, h = canvas.height;
+        const copy = new Uint8ClampedArray(data);
+        const kernel = [0, -1, 0, -1, 5, -1, 0, -1, 0];
+        for (let y = 1; y < h-1; y++) {
+            for (let x = 1; x < w-1; x++) {
+                const idx = (y * w + x) * 4;
+                for (let c = 0; c < 3; c++) {
+                    let sum = 0;
+                    let k = 0;
+                    for (let dy = -1; dy <= 1; dy++) {
+                        for (let dx = -1; dx <= 1; dx++) {
+                            const nidx = ((y+dy) * w + (x+dx)) * 4 + c;
+                            sum += copy[nidx] * kernel[k++];
+                        }
+                    }
+                    data[idx + c] = Math.min(255, Math.max(0, sum));
+                }
+            }
+        }
+        ctx.putImageData(imageData, 0, 0);
+        imagemAtual = canvas.toDataURL('image/png');
+        mostrarNotificacao('🔍 Imagem realçada!', 'info');
+    };
+    img.src = imagemAtual || imagemOriginal;
+}
+
+function resetarImagemEditor() {
+    if (imagemOriginal) {
+        imagemAtual = imagemOriginal;
+        carregarImagemCanvas(imagemOriginal);
+        document.getElementById('sliderBrilho').value = 1.0;
+        document.getElementById('sliderContraste').value = 1.0;
+        document.getElementById('sliderNitidez').value = 1.0;
+        document.getElementById('valBrilho').textContent = '1.0';
+        document.getElementById('valContraste').textContent = '1.0';
+        document.getElementById('valNitidez').textContent = '1.0';
+        mostrarNotificacao('🔄 Imagem resetada!', 'info');
+    }
+}
+
+function salvarEdicao() {
+    if (!produtoEditor) return mostrarNotificacao('Nenhum produto em edição!', 'warning');
+    if (!imagemAtual) return mostrarNotificacao('Sem imagem para salvar!', 'warning');
+    produtoEditor.imagem = imagemAtual;
+    selecionarProduto(produtoEditor.codigo);
+    salvarDadosSilencioso(); // SALVAR NO LOCALSTORAGE
+    mostrarNotificacao('✅ Imagem salva com sucesso!', 'success');
+}
+
+// ============================================================
+//  BACKUP / PERSISTÊNCIA
+// ============================================================
+function salvarDados() {
+    const dados = { produtos, vendas };
+    localStorage.setItem('sistemaVendasData', JSON.stringify(dados));
+    mostrarNotificacao('✅ Dados salvos com sucesso!', 'success');
+}
+
+function salvarDadosSilencioso() {
+    const dados = { produtos, vendas };
+    localStorage.setItem('sistemaVendasData', JSON.stringify(dados));
+}
+
+function carregarDados() {
+    const raw = localStorage.getItem('sistemaVendasData');
+    if (!raw) return mostrarNotificacao('Nenhum dado salvo!', 'warning');
+    try {
+        const dados = JSON.parse(raw);
+        if (dados.produtos) produtos = dados.produtos;
+        if (dados.vendas) vendas = dados.vendas;
+        atualizarTudo();
+        mostrarNotificacao('✅ Dados carregados com sucesso!', 'success');
+    } catch(e) { 
+        mostrarNotificacao('Erro ao carregar dados!', 'danger');
+    }
+}
+
+function carregarDadosSilencioso() {
+    const raw = localStorage.getItem('sistemaVendasData');
+    if (!raw) return;
+    try {
+        const dados = JSON.parse(raw);
+        if (dados.produtos) produtos = dados.produtos;
+        if (dados.vendas) vendas = dados.vendas;
+    } catch(e) {}
+}
+
+function fazerBackup() {
+    const dados = { produtos, vendas, dataBackup: new Date().toLocaleString() };
+    const blob = new Blob([JSON.stringify(dados, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `backup_${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    mostrarNotificacao('✅ Backup baixado com sucesso!', 'success');
+}
+
+// ============================================================
+//  AJUDA
+// ============================================================
+function mostrarSobre() {
+    alert(`🔥 DARK TECH SYSTEM - v5.0
+
+🏪 SISTEMA DE VENDAS PREMIUM
+DESENVOLVIDO EM HTML/CSS/JS
+
+✨ FUNCIONALIDADES COMPLETAS:
+✅ Produtos com imagens (base64)
+✅ Editor de imagens com Canvas (6 efeitos)
+✅ Sistema de vendas com carrinho
+✅ Venda rápida
+✅ Relatórios gerenciais (4 tipos)
+✅ Backup e restauração
+✅ Interface DARK TECH com animações
+✅ Ferramentas de gestão (4 ferramentas)
+✅ Dashboard interativo com gráficos
+✅ 6 TIPOS DE GRÁFICOS PROFISSIONAIS
+✅ Chatbot IA
+✅ Notificações em tempo real
+✅ 3 temas diferentes
+✅ Exportação CSV/PDF
+✅ Múltiplas moedas (BRL, USD, EUR)
+✅ SISTEMA DE LOGIN SEGURO
+✅ RELÓGIO EM TEMPO REAL
+✅ CALENDÁRIO INTERATIVO
+✅ FATURAMENTO BASEADO EM VENDAS REAIS
+✅ DADOS PERSISTENTES NO LOCALSTORAGE
+✅ BOTÃO ZERAR DADOS
+
+📌 COMO FUNCIONA:
+- Todos os dados são salvos automaticamente no localStorage
+- Você pode cadastrar produtos, fazer vendas e tudo fica salvo
+- Use o botão "Zerar Dados" para limpar tudo e começar do zero
+- Os gráficos mostram dados REAIS das suas vendas
+
+© 2025 - TODOS OS DIREITOS RESERVADOS`);
+}
+
+function mostrarTutorial() {
+    alert(`📚 TUTORIAL DARK TECH
+
+1. DASHBOARD: Visão geral do sistema com gráficos.
+2. PRODUTOS: Cadastre, edite, exclua e adicione imagens.
+3. VENDAS: Selecione produto, quantidade e adicione ao carrinho.
+4. CARRINHO: Gerencie itens, finalize venda.
+5. GESTÃO: Marketing, observatório, simulação, rendimento.
+6. RELATÓRIOS: Lucro, estoque, vendas, resumo.
+7. EDITOR: Ajuste brilho, contraste, nitidez e efeitos.
+
+💡 DICAS:
+- Use "Venda Rápida" para agilidade.
+- Alterne temas no menu superior.
+- Exporte relatórios em CSV/PDF.
+- Mude a moeda para USD/EUR.
+- Use o chatbot para ajuda rápida.
+- Faça login com Anthony / ANsdv212
+- Use o botão "Zerar Dados" para começar do zero!
+- TODOS os dados são salvos automaticamente no localStorage.`);
+}
+
+// ============================================================
+//  INICIAR
+// ============================================================
+verificarSessao();
+
+if (!localStorage.getItem('sistemaLogado')) {
+    document.getElementById('loginOverlay').classList.remove('hidden');
+    document.getElementById('app').style.display = 'none';
+}
+</script>
+</body>
+</html>
