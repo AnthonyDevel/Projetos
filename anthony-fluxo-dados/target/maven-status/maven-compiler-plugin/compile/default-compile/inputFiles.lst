@@ -1,0 +1,13 @@
+C:\Users\Boot Anthony\Desktop\fluxo-dados\src\main\java\com\fluxodados\config\AsyncConfig.java
+C:\Users\Boot Anthony\Desktop\fluxo-dados\src\main\java\com\fluxodados\config\SseConfig.java
+C:\Users\Boot Anthony\Desktop\fluxo-dados\src\main\java\com\fluxodados\config\WebConfig.java
+C:\Users\Boot Anthony\Desktop\fluxo-dados\src\main\java\com\fluxodados\domain\DadoFluxo.java
+C:\Users\Boot Anthony\Desktop\fluxo-dados\src\main\java\com\fluxodados\domain\StatusFluxo.java
+C:\Users\Boot Anthony\Desktop\fluxo-dados\src\main\java\com\fluxodados\FluxoDadosApplication.java
+C:\Users\Boot Anthony\Desktop\fluxo-dados\src\main\java\com\fluxodados\repo\DadoFluxoRepository.java
+C:\Users\Boot Anthony\Desktop\fluxo-dados\src\main\java\com\fluxodados\service\FluxoBroadcaster.java
+C:\Users\Boot Anthony\Desktop\fluxo-dados\src\main\java\com\fluxodados\service\FluxoProcessor.java
+C:\Users\Boot Anthony\Desktop\fluxo-dados\src\main\java\com\fluxodados\service\FluxoService.java
+C:\Users\Boot Anthony\Desktop\fluxo-dados\src\main\java\com\fluxodados\web\DadoFluxoResponse.java
+C:\Users\Boot Anthony\Desktop\fluxo-dados\src\main\java\com\fluxodados\web\FluxoController.java
+C:\Users\Boot Anthony\Desktop\fluxo-dados\src\main\java\com\fluxodados\web\NovoDadoRequest.java

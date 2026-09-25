@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fluxo de Dados</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="layout">
+    <header class="topo">
+      <div>
+        <p class="selo">Online · assíncrono</p>
+        <h1>Fluxo de Dados</h1>
+        <p class="subtitulo">Várias pessoas podem inserir dados ao mesmo tempo. O servidor trata cada item em segundo plano e atualiza todos os computadores ao vivo.</p>
+      </div>
+      <div class="status-conexao" id="status-conexao">Conectando...</div>
+    </header>
+
+    <section class="cartao">
+      <h2>Inserir dado</h2>
+      <form id="formulario">
+        <label>
+          Seu nome
+          <input id="autor" name="autor" maxlength="80" required placeholder="Ex.: Ana">
+        </label>
+        <label>
+          Conteúdo
+          <textarea id="conteudo" name="conteudo" maxlength="4000" required placeholder="Digite o texto ou o dado que deve entrar no fluxo"></textarea>
+        </label>
+        <button type="submit">Enviar para o fluxo</button>
+        <p class="aviso" id="aviso" hidden></p>
+      </form>
+    </section>
+
+    <section class="cartao">
+      <div class="lista-topo">
+        <h2>Fila em tempo real</h2>
+        <span id="contador">0 itens</span>
+      </div>
+      <div id="lista" class="lista"></div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

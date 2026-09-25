@@ -1,0 +1,14 @@
+com\fluxodados\service\FluxoBroadcaster.class
+com\fluxodados\web\DadoFluxoResponse.class
+com\fluxodados\web\FluxoController.class
+com\fluxodados\FluxoDadosApplication.class
+com\fluxodados\service\FluxoService$1.class
+com\fluxodados\config\WebConfig.class
+com\fluxodados\domain\DadoFluxo.class
+com\fluxodados\config\AsyncConfig.class
+com\fluxodados\repo\DadoFluxoRepository.class
+com\fluxodados\service\FluxoProcessor.class
+com\fluxodados\web\NovoDadoRequest.class
+com\fluxodados\service\FluxoService.class
+com\fluxodados\config\SseConfig.class
+com\fluxodados\domain\StatusFluxo.class
